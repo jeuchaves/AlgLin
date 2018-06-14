@@ -16,8 +16,8 @@ function redimensionarMatrizes() {
     var linhas = $('#numLinhas').val();
     var colunas = $("#numColunas").val();
 
-    if(!isValidTam(linhas)) linhas = 3;
-    if(!isValidTam(colunas)) colunas = 3;
+    if(!tamanhoValido(linhas)) linhas = 3;
+    if(!tamanhoValido(colunas)) colunas = 3;
 
     var matA = $('#MatrizA');
     matA.html(gerarMatriz(linhas, colunas, 'a'));
@@ -67,8 +67,19 @@ function realizarSoma() {
     var linhas = $('#numLinhas').val();
     var colunas = $("#numColunas").val();
 
-    if(!isValidTam(linhas)) linhas = 3;
-    if(!isValidTam(colunas)) colunas = 3;
+    if(!tamanhoValido(linhas)) linhas = 3;
+    if(!tamanhoValido(colunas)) colunas = 3;
+
+     if(!validarDados(linhas, colunas)) {
+        $('#erro').text("Por favor, insira os dados em <strong>todos</strong> os campos das matrizes");
+        var erro = $("#erro");
+        erro.html(`<p class="mb-0 lead text-center conteudo alert alert-danger" id="erro">Por favor, insira os dados em <strong>todos</strong> os campos das matrizes</p>`);
+        var resultado = $("#resultado");
+        resultado.html(`<p class="lead">Após <strong>inserir os dados</strong> nas matrizes e <strong>clicar</strong> sobre o circulo. Seu resultado aparecerá aqui.</p>`);
+        return;
+     } else {
+         $("#erro").text("");
+     }
 
     var matrizA = criarMatriz(linhas, colunas, 'a');
     var matrizB = criarMatriz(linhas, colunas, 'b');
@@ -79,7 +90,29 @@ function realizarSoma() {
     matrizFinal.html(imprimirMatriz(linhas, colunas, matrizC));
 }
 
-function isValidTam (valor) {
+function validarDados(linhas, colunas) {
+    var temErro = false;
+    for (var l = 1; l <= linhas; ++l) {
+        for (var c = 1; c <= colunas; ++c) {
+            if($(`#a${l}${c}`).val() == "") {
+                $(`#a${l}${c}`).addClass("alert-danger");
+                temErro = true;
+            } else {
+                $(`#a${l}${c}`).removeClass("alert-danger");
+            }
+            if($(`#b${l}${c}`).val() == "") {
+                $(`#b${l}${c}`).addClass("alert-danger");
+                temErro = true;
+            } else {
+                $(`#b${l}${c}`).removeClass("alert-danger");
+            }
+        }
+    }
+    if(temErro) return false;
+    return true;
+}
+
+function tamanhoValido (valor) {
     if (valor > 0 && valor < 6) return true;
     return false;
 }
