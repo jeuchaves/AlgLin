@@ -5,13 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
 
   <title>TIC - Álgebra Linear</title>
   <link rel="shortcut icon" href="img/logo.png">
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/estilo.css" rel="stylesheet">
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper/popper.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  <script src="js/soma.js"></script>  
 </head>
 
 <body>
@@ -63,10 +68,7 @@
       <h1 class="display-3">Soma</h1>
       <blockquote class="blockquote">
         <p class="mb-0 lead">
-          Soma, do gredo,
-          <i>áthroisma</i>. Do latim,
-          <i>summa</i>. Do Inglês,
-          <i>summ</i>.
+          Uma soma (do latim <i>summa</i>) é a junção de coisas. O termo faz referência à ação e ao efeito de somar ou juntar/acrescentar.
         </p>
         <footer class="blockquote-footer">Jeú Chaves, Aluno do
           <cite title="Source Title">Insituto Federal</cite>
@@ -78,9 +80,9 @@
     <div class="row conteudo">
       <div class="col-md-6 align-self-center">
         <p class="lead">
-          Para realizar uma operação de
-          <strong>soma matricial</strong> é necessário se ter uma matriz de tamanhos equivalentes. Por esse motivo, é preciso informar
-          apenas um tamanho de linha e coluna.
+          A <strong>soma matricial</strong> possui matriz de tamanhos equivalentes, 
+          sendo a quantidade de linhas e colunas da primeira matriz iguais à segunda matriz.<Br> 
+          Para a sua facilidade, só é permitido criar uma matriz de tamanho máximo <strong>5x5</strong>.
         </p>
       </div>
       <div class="col-md-6 justify-content-center">
@@ -91,10 +93,10 @@
 
             <form class="conteudo">
               <div class="form-group">
-                <input type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="100" class="form-control">
+                <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="5" class="form-control">
               </div>
               <div class="form-group">
-                <input type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="100" class="form-control">
+                <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="5" class="form-control">
               </div>
             </form>
           </div>
@@ -104,90 +106,101 @@
 
     <div class="col-xl-12 card conteudo">
       <div class="card-body">
-        <div class="row">
+        <div class="row"> 
           <div class="col-md-5">
             <h5 class="card-title text-center">Matriz A</h5>
-            <table align="center">
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a11" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a12" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a13" type="number">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a21" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a22" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a23" type="number">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a31" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a32" type="number">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="a33" type="number">
-                </td>
-              </tr>
-            </table>
+            <form>
+              <table align="center" id="MatrizA">
+                <tr>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a11" type="number" id="a11">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a12" type="number" id="a12">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a13" type="number" id="a13">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a21" type="number" id="a21">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a22" type="number" id="a22">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a23" type="number" id="a23">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a31" type="number" id="a31">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a32" type="number" id="a32">
+                  </td>
+                  <td>
+                    <input class="form-control input-matriz" placeholder="a33" type="number" id="a33">
+                  </td>
+                </tr>
+              </table>
+            </form>
           </div>
 
-          <div class="col-md-2 align-self-center text-center">
-            <img class="rounded-circle" src="img/template.jpg" width="130" height="130">
+          <div class="col-md-2 align-self-center text-center animation">
+            <img id="calcular" class="rounded-circle" src="img/template.jpg" width="130" height="130">
           </div>
 
           <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz A</h5>
-            <table align="center">
+            <h5 class="card-title text-center">Matriz B</h5>
+            <table align="center" id="MatrizB">
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a11" type="number">
+                  <input class="form-control input-matriz" placeholder="b11" type="number" id="b11">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a12" type="number">
+                  <input class="form-control input-matriz" placeholder="b12" type="number" id="b12">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a13" type="number">
+                  <input class="form-control input-matriz" placeholder="b13" type="number" id="b13">
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a21" type="number">
+                  <input class="form-control input-matriz" placeholder="b21" type="number" id="b21">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a22" type="number">
+                  <input class="form-control input-matriz" placeholder="b22" type="number" id="b22">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a23" type="number">
+                  <input class="form-control input-matriz" placeholder="b23" type="number" id="b23">
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a31" type="number">
+                  <input class="form-control input-matriz" placeholder="b31" type="number" id="b31">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a32" type="number">
+                  <input class="form-control input-matriz" placeholder="b32" type="number" id="b32">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a33" type="number">
+                  <input class="form-control input-matriz" placeholder="b33" type="number" id="b33">
                 </td>
               </tr>
             </table>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="text-center conteudo">
+        <h1 class="display-3">Passo a Passo</h1>
+        <div id="resultado">
+          <p class="lead">
+            Após <strong>inserir os dados</strong> nas matrizes e <strong>clicar</strong> sobre o circulo. Seu resultado aparecerá aqui.
+          </p>
+        </div>
     </div>
   </main>
 
@@ -198,9 +211,4 @@
     </div>
   </footer>
 </body>
-
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
 </html>

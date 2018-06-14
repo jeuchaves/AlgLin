@@ -2,15 +2,15 @@ body {
     padding-top: 54px;
 }
 
-a {
-    transition: transform .2s;
+.animation {
+    transition: transfomr .2s;
 }
 
-a img {
+.animation img {
     transition: all 0.3s;
 }
 
-a:hover img {
+.animation:hover img {
     transform: scale(1.1);
 }
 
