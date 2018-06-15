@@ -1,6 +1,5 @@
 var L = 3; 
 var C = 3;
-var numEscalar = 3;
 
 function gerarMatriz(prefixo) {
     var html = "";
@@ -68,7 +67,7 @@ function imprimirMatriz(matriz) {
 
 function realizarOperacao() {
 
-    numEscalar = $('#numEscalar').val();
+    var numEscalar = $("#numEscalar").val();
 
      if(!validarDados()) {
         $('#erro').text("Por favor, insira os dados em <strong>todos</strong> os campos das matrizes");
@@ -83,10 +82,10 @@ function realizarOperacao() {
 
     var matrizA = criarMatriz('a');
 
-    var matrizC = operarMatriz(matrizA, numEscalar);
+    var matriz = operarMatriz(matrizA, numEscalar);
 
     var matrizFinal = $('#resultado');
-    matrizFinal.html(imprimirMatriz(matrizC));
+    matrizFinal.html(imprimirMatriz(matriz));
 }
 
 function validarDados() {
