@@ -16,7 +16,7 @@
   <script src="vendor/popper/popper.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="js/soma.js"></script>  
+  <script src="js/multiplicacao-escalar.js"></script>  
 </head>
 
 <body>
@@ -113,7 +113,7 @@
             <h5 class="card-title text-center">Número Escalar</h5>
             <form>
                 <div class="form-group">
-                    <input id="numEscalar" type="number" placeholder="Número Escalar" class="form-control">
+                    <input id="numEscalar" type="number" placeholder="Número Escalar" class="form-control input-escalar">
                 </div>
             </form>
           </div>
@@ -123,39 +123,39 @@
           </div>
 
           <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz B</h5>
-            <table align="center" id="MatrizB">
+            <h5 class="card-title text-center">Matriz A</h5>
+            <table align="center" id="MatrizA">
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b11" type="number" id="b11">
+                  <input class="form-control input-matriz" placeholder="a11" type="number" id="b11">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b12" type="number" id="b12">
+                  <input class="form-control input-matriz" placeholder="a12" type="number" id="b12">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b13" type="number" id="b13">
+                  <input class="form-control input-matriz" placeholder="a13" type="number" id="b13">
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b21" type="number" id="b21">
+                  <input class="form-control input-matriz" placeholder="a21" type="number" id="b21">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b22" type="number" id="b22">
+                  <input class="form-control input-matriz" placeholder="a22" type="number" id="b22">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b23" type="number" id="b23">
+                  <input class="form-control input-matriz" placeholder="a23" type="number" id="b23">
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b31" type="number" id="b31">
+                  <input class="form-control input-matriz" placeholder="a31" type="number" id="b31">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b32" type="number" id="b32">
+                  <input class="form-control input-matriz" placeholder="a32" type="number" id="b32">
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="b33" type="number" id="b33">
+                  <input class="form-control input-matriz" placeholder="a33" type="number" id="b33">
                 </td>
               </tr>
             </table>
