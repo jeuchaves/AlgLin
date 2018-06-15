@@ -1,6 +1,11 @@
 var LA = 3, LB = 3;
 var CA = 3, CB = 3;
 
+var MA, MB, MC;
+
+var LINHADESTACADA = 1;
+var COLUNADESTACADA = 1;
+
 function gerarMatriz(linhas, colunas, prefixo) {
     var html = "";
 
@@ -108,18 +113,116 @@ function operarMatriz(matrizA, matrizB) {
     return matriz;
 }
 
-function imprimirMatriz(linhas, colunas, matriz) {
-    html = `<h5 class="card-title text-center conteudo">Matriz Resultante</h5>`;
+function gerarResultado() {
+    $("#resultado").addClass("row");
+    var html = "";  
+    
+    // Matriz A
+    html += `<div class="col-md-3">`;
+    html += `<h5 class="card-title text-center conteudo">Matriz A</h5>`;
     html += `<table class="table table-bordered">`;
-    for (var l = 1; l <= linhas; ++l) {
+    for (var l = 1; l <= LA; ++l) {
         html += "<tr>";
-        for (var c = 1; c <= colunas; ++c) {
-            html += `<td>${matriz[l][c]}</td>`;
+        for (var c = 1; c <= CA; ++c) {
+            if(l == LINHADESTACADA) html += `<td class="alert-dark">${MA[l][c]}</td>`;
+            else html += `<td>${MA[l][c]}</td>`;
         }
         html += "</tr>";
     }
     html += "</table>";
+    html += "</div>";
+
+    // Matriz B
+    html += `<div class="col-md-3">`;
+    html += `<h5 class="card-title text-center conteudo">Matriz B</h5>`;
+    html += `<table class="table table-bordered">`;
+    for (var l = 1; l <= LB; ++l) {
+        html += "<tr>";
+        for (var c = 1; c <= CB; ++c) {
+            if(c == COLUNADESTACADA) html += `<td class="alert-dark">${MB[l][c]}</td>`;
+            else html += `<td>${MB[l][c]}</td>`;
+        }
+        html += "</tr>";
+    }
+    html += "</table>";
+    html += "</div>";
+
+    // Matriz Resultante
+    html += `<div class="col-md-6">`;
+    html += `<h5 class="card-title text-center conteudo">Matriz Resultante</h5>`;
+    html += `<table class="table table-bordered">`;
+    for (var l = 1; l <= LA; ++l) {
+        html += "<tr>";
+        for (var c = 1; c <= CB; ++c) {
+            var texto = "";
+            for (var i = 1; i <= CB; ++i) {
+                texto += `(${MA[l][i]} * ${MB[i][l]})`;
+                if (i != CB) texto += " + ";
+            }
+            if(l == LINHADESTACADA && c == COLUNADESTACADA) {
+                html += `<td class="alert-dark">${texto} = ${MC[l][c]}</td>`;
+            } else html += `<td>${MC[l][c]}</td>`;
+        }
+        html += "</tr>";
+    }
+    html += "</table>";
+    html += "</div>";
+    
     return html;
+}
+
+function gerarBotoes() {
+
+    $("#bts-resultado").addClass("row conteudo");
+    var html = "";
+
+    html += `<div class="col-md-6">`;
+    if(LINHADESTACADA == 1 && COLUNADESTACADA == 1) html += "";
+    else {
+        html += `<div class="align-self-center text-right animation">`;
+        html += `<img id="voltar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
+        html += "</div>";
+    }
+    html += "</div>"
+
+    html += `<div class="col-md-6">`;
+    if(LINHADESTACADA == LA && COLUNADESTACADA == CB) html += "";
+    else {
+        html += `<div class="align-self-center text-left animation">`;
+        html += `<img id="avancar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
+        html += "</div>";
+    }
+    html += "</div>"
+
+    return html;
+}
+
+function voltar() {
+    if(COLUNADESTACADA <= 1) {
+        COLUNADESTACADA = CB;
+        --LINHADESTACADA; 
+    } else {
+        --COLUNADESTACADA;
+    }
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
+}
+
+function avancar() {
+    if(COLUNADESTACADA >= CB) {
+        ++LINHADESTACADA;
+        COLUNADESTACADA = 1;
+    } else {
+        ++COLUNADESTACADA;
+    }
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
 }
 
 function realizarOperacao() {
@@ -140,8 +243,15 @@ function realizarOperacao() {
 
     var matrizC = operarMatriz(matrizA, matrizB);
 
-    var matrizFinal = $('#resultado');
-    matrizFinal.html(imprimirMatriz(LA, CB, matrizC));
+    MA = matrizA;
+    MB = matrizB;
+    MC = matrizC;
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
 }
 
 function validarDados() {
@@ -194,6 +304,14 @@ $(function () {
 
     $('#calcular').click(function () {
         realizarOperacao();
+    });
+
+    $(document).on('click', '#voltar', function() {
+        voltar();
+    });
+
+    $(document).on('click', '#avancar', function() {
+        avancar();
     });
 });
 

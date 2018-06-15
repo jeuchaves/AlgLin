@@ -156,7 +156,7 @@ function gerarResultado() {
     for (var l = 1; l <= L; ++l) {
         html += "<tr>";
         for (var c = 1; c <= C; ++c) {
-            if(l == LINHADESTACADA && c == COLUNADESTACADA) html += `<td class="alert-dark">${MA[l][c]} + ${MB[l][c]} = ${MC[l][c]}</td>`;
+            if(l == LINHADESTACADA && c == COLUNADESTACADA) html += `<td class="alert-dark">(${MA[l][c]}) + (${MB[l][c]}) = ${MC[l][c]}</td>`;
             else html += `<td>${MC[l][c]}</td>`;
         }
         html += "</tr>";
