@@ -65,13 +65,14 @@
 
   <main class="conteudo container">
     <div class="text-center">
-      <h1 class="display-3">Soma</h1>
+      <h1 class="display-3">Multiplicação Escalar</h1>
       <blockquote class="blockquote">
         <p class="mb-0 lead">
-          Uma soma (do latim <i>summa</i>) é a junção de coisas. O termo faz referência à ação e ao efeito de somar ou juntar/acrescentar.
+                O termo multiplicação escalar refere-se ao produto de um número real com uma matriz. 
+                Em multiplicações escalares, cada elemento da matriz é multiplicado pelo escalar determinado.
         </p>
-        <footer class="blockquote-footer">Jeú Chaves, Aluno do
-          <cite title="Source Title">Insituto Federal</cite>
+        <footer class="blockquote-footer">Wikipedia, Aluno do
+          <cite title="Source Title">Lucas Neggri</cite>
         </footer>
       </blockquote>
     </div>
@@ -79,9 +80,10 @@
     <div class="row espaco">
       <div class="col-md-6 align-self-center">
         <p class="lead">
-          A <strong>soma matricial</strong> possui matrizes de tamanhos equivalentes, 
-          sendo a quantidade de linhas e colunas da primeira matriz iguais à segunda matriz.<Br> 
+          A <strong>matriz escalar</strong> possui apenas uma matrizes, onde todas as células dessa matriz
+          serão multiplicadas pelo número escalar, na qual se deve informar no quadro ao lado.<Br> 
           Para a sua facilidade, só é permitido criar uma matriz de tamanho máximo <strong>4x4</strong>.
+          Já o escalar, possui um limite enorme (ainda não declarado).
         </p>
       </div>
       <div class="col-md-6 justify-content-center">
@@ -90,13 +92,13 @@
             <h5 class="card-title">Tamanho das Matrizes</h5>
             <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
 
-            <form class="conteudo">
-              <div class="form-group">
-                <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
-              </div>
-              <div class="form-group">
-                <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
-              </div>
+            <form class="conteudo justify-content-center">
+                <div class="form-group">
+                    <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
+                </div>
             </form>
           </div>
         </div>
@@ -107,44 +109,12 @@
         <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
         <hr class="conteudo">
         <div class="row"> 
-          <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz A</h5>
+          <div class="col-md-5  align-self-center">
+            <h5 class="card-title text-center">Número Escalar</h5>
             <form>
-              <table align="center" id="MatrizA">
-                <tr>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a11" type="number" id="a11">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a12" type="number" id="a12">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a13" type="number" id="a13">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a21" type="number" id="a21">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a22" type="number" id="a22">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a23" type="number" id="a23">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a31" type="number" id="a31">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a32" type="number" id="a32">
-                  </td>
-                  <td>
-                    <input class="form-control input-matriz" placeholder="a33" type="number" id="a33">
-                  </td>
-                </tr>
-              </table>
+                <div class="form-group">
+                    <input id="numEscalar" type="number" placeholder="Número Escalar" class="form-control">
+                </div>
             </form>
           </div>
 

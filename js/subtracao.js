@@ -24,7 +24,7 @@ function redimensionarMatrizes() {
 
     L = linhas;
     C = colunas;
-
+    
     var matA = $('#MatrizA');
     matA.html(gerarMatriz('a'));
 
@@ -48,7 +48,7 @@ function operarMatriz(matrizA, matrizB) {
     for (var l = 1; l <= L; ++l) {
         matriz[l] = Array(C);
         for (var c = 1; c <= C; ++c) {
-            matriz[l][c] = parseInt(matrizA[l][c]) + parseInt(matrizB[l][c]);
+            matriz[l][c] = parseInt(matrizA[l][c]) - parseInt(matrizB[l][c]);
         }
     }
     return matriz;
