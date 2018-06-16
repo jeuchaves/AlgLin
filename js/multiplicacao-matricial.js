@@ -104,7 +104,7 @@ function operarMatriz(matrizA, matrizB) {
         matriz[l] = Array(CB);
         for (var c = 1; c <= CB; ++c) {
             var resultado = 0;
-            for (var i = 1; i <= CB; ++i) {
+            for (var i = 1; i <= CA; ++i) {
                 resultado += matrizA[l][i] * matrizB[i][c];
             }
             matriz[l][c] = resultado;
@@ -155,9 +155,9 @@ function gerarResultado() {
         html += "<tr>";
         for (var c = 1; c <= CB; ++c) {
             var texto = "";
-            for (var i = 1; i <= CB; ++i) {
-                texto += `(${MA[l][i]} * ${MB[i][l]})`;
-                if (i != CB) texto += " + ";
+            for (var i = 1; i <= CA; ++i) {
+                texto += `(${MA[l][i]} * ${MB[i][c]})`;
+                if (i != CA) texto += " + ";
             }
             if(l == LINHADESTACADA && c == COLUNADESTACADA) {
                 html += `<td class="alert-dark">${texto} = ${MC[l][c]}</td>`;
