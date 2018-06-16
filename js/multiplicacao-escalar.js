@@ -1,6 +1,11 @@
 var L = 3; 
 var C = 3;
 
+var NESCALAR, MA, MR;
+
+var LINHADESTACADA = 1; 
+var COLUNADESTACADA = 1;
+
 function gerarMatriz(prefixo) {
     var html = "";
 
@@ -51,18 +56,105 @@ function operarMatriz(matrizA, numEscalar) {
     return matriz;
 }
 
-function imprimirMatriz(matriz) {
-    html = `<h5 class="card-title text-center conteudo">Matriz Resultante</h5>`;
+function gerarResultado() {
+    $("#resultado").addClass("row");
+    var html = "";  
+    
+    // Matriz A
+    html += `<div class="col-md-3">`;
+    html += `<h5 class="card-title text-center conteudo">Número Escalar</h5>`;
+    html += `<table class="table table-bordered">`;
+    html += "<tr>";
+    html += `<td class="alert-dark">${NESCALAR}</td>`;
+    html += "</tr>";
+    html += "</table>";
+    html += "</div>";
+
+    // Matriz B
+    html += `<div class="col-md-3">`;
+    html += `<h5 class="card-title text-center conteudo">Matriz B</h5>`;
     html += `<table class="table table-bordered">`;
     for (var l = 1; l <= L; ++l) {
         html += "<tr>";
         for (var c = 1; c <= C; ++c) {
-            html += `<td>${matriz[l][c]}</td>`;
+            if(l == LINHADESTACADA && c == COLUNADESTACADA) html += `<td class="alert-dark">${MA[l][c]}</td>`;
+            else html += `<td>${MA[l][c]}</td>`;
         }
         html += "</tr>";
     }
     html += "</table>";
+    html += "</div>";
+
+    // Matriz Resultante
+    html += `<div class="col-md-6">`;
+    html += `<h5 class="card-title text-center conteudo">Matriz Resultante</h5>`;
+    html += `<table class="table table-bordered">`;
+    for (var l = 1; l <= L; ++l) {
+        html += "<tr>";
+        for (var c = 1; c <= C; ++c) {
+            if(l == LINHADESTACADA && c == COLUNADESTACADA) html += `<td class="alert-dark">(${NESCALAR}) * (${MA[l][c]}) = ${MR[l][c]}</td>`;
+            else html += `<td>${MR[l][c]}</td>`;
+        }
+        html += "</tr>";
+    }
+    html += "</table>";
+    html += "</div>";
+    
     return html;
+}
+
+function gerarBotoes() {
+
+    $("#bts-resultado").addClass("row conteudo");
+    var html = "";
+
+    html += `<div class="col-md-6">`;
+    if(LINHADESTACADA == 1 && COLUNADESTACADA == 1) html += "";
+    else {
+        html += `<div class="align-self-center text-right animation">`;
+        html += `<img id="voltar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
+        html += "</div>";
+    }
+    html += "</div>"
+
+    html += `<div class="col-md-6">`;
+    if(LINHADESTACADA == L && COLUNADESTACADA == C) html += "";
+    else {
+        html += `<div class="align-self-center text-left animation">`;
+        html += `<img id="avancar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
+        html += "</div>";
+    }
+    html += "</div>"
+
+    return html;
+}
+
+function voltar() {
+    if(COLUNADESTACADA <= 1) {
+        COLUNADESTACADA = C;
+        --LINHADESTACADA; 
+    } else {
+        --COLUNADESTACADA;
+    }
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
+}
+
+function avancar() {
+    if(COLUNADESTACADA >= C) {
+        ++LINHADESTACADA;
+        COLUNADESTACADA = 1;
+    } else {
+        ++COLUNADESTACADA;
+    }
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
 }
 
 function realizarOperacao() {
@@ -83,9 +175,15 @@ function realizarOperacao() {
     var matrizA = criarMatriz('a');
 
     var matriz = operarMatriz(matrizA, numEscalar);
+    
+    NESCALAR = numEscalar;
+    MA = matrizA;
+    MR = matriz;
 
     var matrizFinal = $('#resultado');
-    matrizFinal.html(imprimirMatriz(matriz));
+    matrizFinal.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
 }
 
 function validarDados() {
@@ -129,6 +227,14 @@ $(function () {
 
     $('#calcular').click(function () {
         realizarOperacao();
+    });
+
+    $(document).on('click', '#voltar', function() {
+        voltar();
+    });
+
+    $(document).on('click', '#avancar', function() {
+        avancar();
     });
 });
 
