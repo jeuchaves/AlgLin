@@ -12,7 +12,7 @@ function gerarMatriz(linhas, colunas, prefixo) {
     for (var l = 1; l <= linhas; ++l) {
         html += "<tr>";
         for (var c = 1; c <= colunas; ++c) {
-            html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="a${l}${c}" type="number"></td>`;
+            html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="${prefixo}${l}${c}" type="number"></td>`;
         }
         html += "</tr>";
     }

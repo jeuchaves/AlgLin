@@ -34,7 +34,7 @@ function gerarMatriz(prefixo) {
     for (var l = 1; l <= L; ++l) {
         html += "<tr>";
         for (var c = 1; c <= C; ++c) {
-            html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="a${l}${c}" type="number"></td>`;
+            html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="${prefixo}${l}${c}" type="number"></td>`;
         }
         html += "</tr>";
     }
