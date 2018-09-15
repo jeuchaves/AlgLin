@@ -1,166 +1,119 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    	<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>TIC - Álgebra Linear</title>
-        <link rel="shortcut icon" href="img/logo.png">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Ferramenta de Ensino de Álgebra Linear">
+    <meta name="keywords" content="AlgLin, Álgebra Linear, Matemática">
+    <meta name="author" content="Jeú Chaves Lima">
+    <meta name="author" content="Rino Cardoso Moreira Junior">
 
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/estilo.css" rel="stylesheet">
+    <title>AlgLin</title>
 
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/popper/popper.min.js"   ></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo.png" class="logo">
-                <span>AlgLin</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Pagina Inicial</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="sobre.html">Sobre</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Operações
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="soma.html">Soma</a>
-                    <a class="dropdown-item" href="subtracao.html">Subtração</a>
-                    <a class="dropdown-item" href="multiplicacao-matricial.html">Multiplicação Matricial</a>
-                    <a class="dropdown-item" href="multiplicacao-escalar.html">Multiplicação Escalar</a>
-                    <a class="dropdown-item" href="determinante.html">Determinante</a>
-                    <a class="dropdown-item" href="matriz-inversa.html">Matriz Inversa</a>
-                    <a class="dropdown-item" href="sistema-linear.html">Sistema Linear</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="operacoes.html">Todas Operações</a>
-                </div>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-              <button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
-            </form>
-          </div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+
+  <body class="text-center">
+
+  <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">AlgLin</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="index.html">Inicio</a>
+          <a class="nav-link active" href="operacoes.html">Operações</a>
+          <a class="nav-link" href="sobre.html">Sobre</a>
         </nav>
-        <main>
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 slide" src="img/template.jpg" alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 slide" src="img/template.jpg" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 slide" src="img/template.jpg" alt="Third slide">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+      </div>
+    </header>
+
+    <main role="main" class="inner capa">
+      <h1 class="p-3">Operações</h1>
+      <p class="lead">
+        Para começar, escolha a operação que deseja <strong>aprender</strong>.
+        Faça isso clicando sobre o ícone da operação.
+      </p>
+
+      <div class="row p-4">
+        <div class="col-md-4 p-4">
+          <div class="media">
+            <a class="animation" href="soma.html">
+              <img class="align-self-center mr-3 icone" src="img/soma.png" alt="Soma">
+            </a>
+            <div class="media-body">
+              <h5 class="mt-0">Soma</h5>
             </div>
+          </div>
+        </div>
 
-            <div class="col-xl-12 conteudo">
-                <div class="row">
-                    <div class="col-lg-3 text-center">
-                        <a href="soma.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Soma</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="subtracao.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Subtração</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="multiplicacao-matricial.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Multiplicação Matricial</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="multiplicacao-escalar.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Multiplicação Escalar</h4>
-                        <hr class="linha">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-3 text-center">
-                        <a href="matriz-transposta.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Matriz Transposta</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="determinante.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Determinante</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="matriz-inversa.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Matriz Inversa</h4>
-                        <hr class="linha">
-                    </div>
-
-                    <div class="col-lg-3 text-center">
-                        <a href="sistema-linear.html" class="animation">
-                            <img class="rounded-circle" src="img/template.jpg" width="180" height="180">
-                        </a>
-                        <h4 class="conteudo">Sistema Linear</h4>
-                        <hr class="linha">
-                    </div>
-                </div>
+        <div class="col-md-4 p-4">
+          <div class="media">
+            <a class="animation" href="subtracao.html">
+              <img class="align-self-center mr-3 icone" src="img/subtracao.png" alt="Subtração">
+            </a>
+            <div class="media-body">
+              <h5 class="mt-0">Subtração</h5>
             </div>
-        </main>
-        
-        <footer class="py-5 conteudo">
-            <hr class="linha">
-            <div class="container">
-                <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+          </div>
+        </div>
+
+        <div class="col-md-4 p-4">
+          <div class="media">
+            <a class="animation" href="multiplicacao-matricial.html">
+              <img class="align-self-center mr-3 icone" src="img/multiplicacao.png" alt="Multiplicação Matricial">
+            </a>
+            <div class="media-body">
+              <h5 class="mt-0">Multiplicação Matricial</h5>
             </div>
-        </footer>
-    </body>	
+          </div>
+        </div>
+
+        <div class="col-md-4 p-4">
+          <div class="media">
+            <a class="animation" href="multiplicacao-escalar.html">
+              <img class="align-self-center mr-3 icone" src="img/multiplicacao.png" alt="Multiplicação Escalar">
+            </a>
+            <div class="media-body">
+              <h5 class="mt-0">Multiplicação Escalar</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 p-4">
+          <div class="media">
+          <a class="animation" href="matriz-transposta.html">
+            <img class="align-self-center mr-3 icone" src="img/transposta.png" alt="Matriz Tranposta">
+          </a>
+            <div class="media-body">
+              <h5 class="mt-0">Matriz Transposta</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 p-4">
+          <div class="media">
+            <a class="animation" href="determinante.html">
+              <img class="align-self-center mr-3 icone" src="img/determinante.png" alt="Determinante">
+            </a>
+            <div class="media-body">
+              <h5 class="mt-0">Determinante</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+          <p>Icons made by <a href="http://www.freepik.com" title="Freepik" target="_blank">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+        <p>Copyright &copy; AlgLin 2018</p>
+      </div>
+    </footer>
+  </div>
 </html>

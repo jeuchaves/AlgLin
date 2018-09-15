@@ -6,6 +6,11 @@ var MA, MB, MC;
 var LINHADESTACADA = 1;
 var COLUNADESTACADA = 1;
 
+function arredondar(numero, casasDecimais) {
+    casasDecimais = typeof casasDecimais !== 'undefined' ?  casasDecimais : 2;
+    return +(Math.floor(numero + ('e+' + casasDecimais)) + ('e-' + casasDecimais));
+}
+
 function gerarMatriz(linhas, colunas, prefixo) {
     var html = "";
 
@@ -51,7 +56,7 @@ function redimensionarMatrizes() {
 
         $("#erro-dimensao").addClass("alert-danger");
 
-        $("#erro-continuacao").html(`<p class="lead text-center alert alert-warning conteudo">Ops! Não será possivel continuar a operação enquanto a <strong>coluna</strong> da <strong>Matriz A</strong> for diferente da <strong>Linha</strong> da <strong>Matriz B</strong></h1>`)
+        $("#erro-continuacao").html(`<p class="lead text-center alert alert-warning conteudo">Ops! Não será possivel continuar a operação enquanto o <strong>número de colunas</strong> da <strong>Matriz A</strong> for diferente do <strong>número de linhas</strong> da <strong>Matriz B</strong></h1>`)
         $("#continuacao").hide();
         return;
     } else {
@@ -108,15 +113,31 @@ function operarMatriz(matrizA, matrizB) {
                 resultado += matrizA[l][i] * matrizB[i][c];
             }
             matriz[l][c] = resultado;
+            matriz[l][c] = arredondar(matriz[l][c], 2);
         }
     }
     return matriz;
 }
 
 function gerarResultado() {
-    $("#resultado").addClass("row");
     var html = "";  
+
+    // Enunciado
+    if(LINHADESTACADA == 0 && COLUNADESTACADA == 0) html += "";
+    else {
+        html += `<hr class="linha">`;
+        html += `<p class="lead">`;
+        html += `Multiplique os elementos da linha <strong>${LINHADESTACADA}</strong> da <strong>Matriz A (a esquerda)</strong> pelos elementos correspondentes da coluna <strong>${COLUNADESTACADA}</strong> da <strong>Matriz B (a direita)</strong> para obter o elemento <strong>c<sub>${LINHADESTACADA}${COLUNADESTACADA}</sub></strong>.<br>`;
+        var texto = "";
+        for (var i = 1; i <= CA; ++i) {
+            texto += gerarCalculo(LINHADESTACADA, COLUNADESTACADA, i);
+            if (i != CA) texto += " + ";
+        }
+        html += `<strong>${texto} = ${MC[LINHADESTACADA][COLUNADESTACADA]}</strong>`;    
+        html += `</p>`
+    }
     
+    html += `<div class="col-xl-12 row">`
     // Matriz A
     html += `<div class="col-md-3">`;
     html += `<h5 class="card-title text-center conteudo">Matriz A</h5>`;
@@ -156,7 +177,7 @@ function gerarResultado() {
         for (var c = 1; c <= CB; ++c) {
             var texto = "";
             for (var i = 1; i <= CA; ++i) {
-                texto += `(${MA[l][i]} * ${MB[i][c]})`;
+                texto += gerarCalculo(l, c, i);
                 if (i != CA) texto += " + ";
             }
             if(l == LINHADESTACADA && c == COLUNADESTACADA) {
@@ -171,28 +192,57 @@ function gerarResultado() {
     return html;
 }
 
-function gerarBotoes() {
+function gerarCalculo(l,c, i) {
+    var html = "";
 
+    if (isNegativo(MA[l][i])) html += `(${MA[l][i]}) x `;
+    else html += `${MA[l][i]} x `;
+    
+    if (isNegativo(MB[i][c])) html += `(${MB[i][c]})`;
+    else html += `${MB[i][c]}`;
+
+    return html;
+}
+
+function isNegativo(valor) {
+    if(valor >= 0) return false;
+    return true;
+}
+
+function gerarBotoes() {
     $("#bts-resultado").addClass("row conteudo");
     var html = "";
 
-    html += `<div class="col-md-6">`;
-    if(LINHADESTACADA == 1 && COLUNADESTACADA == 1) html += "";
-    else {
-        html += `<div class="align-self-center text-right animation">`;
-        html += `<img id="voltar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
-        html += "</div>";
-    }
-    html += "</div>"
+    if(LINHADESTACADA == 0 && COLUNADESTACADA == 0) {
+        $("#bts-resultado").removeClass("row");
+        html += `<div class="align-self-center text-center animation">`;
+        html += `<img id="reiniciar" class="rounded-circle" src="img/botoes/recarregar.png" widht="130" height="130">`;
+        html += "</div>";    
+    } else {
+        html += `<div class="col-md-6">`;
+        if(LINHADESTACADA == 1 && COLUNADESTACADA == 1) {
+            html += `<div class="align-self-center text-right">`;
+            html += `<img class="rounded-circle" src="img/botoes/voltar desabilitado.jpg" widht="130" height="130">`;
+            html += "</div>";
+        } else {
+            html += `<div class="align-self-center text-right animation">`;
+            html += `<img id="voltar" class="rounded-circle" src="img/botoes/voltar.png" widht="130" height="130">`;
+            html += "</div>";
+        }
+        html += "</div>"
 
-    html += `<div class="col-md-6">`;
-    if(LINHADESTACADA == LA && COLUNADESTACADA == CB) html += "";
-    else {
-        html += `<div class="align-self-center text-left animation">`;
-        html += `<img id="avancar" class="rounded-circle" src="img/template.jpg" widht="130" height="130">`;
-        html += "</div>";
+        html += `<div class="col-md-6">`;
+        if(LINHADESTACADA == LA && COLUNADESTACADA == CB) {
+            html += `<div class="align-self-center text-left animation">`;
+            html += `<img id="finalizar" class="rounded-circle" src="img/botoes/finalizar.png" widht="130" height="130">`;
+            html += "</div>";    
+        } else {
+            html += `<div class="align-self-center text-left animation">`;
+            html += `<img id="avancar" class="rounded-circle" src="img/botoes/avancar.png" widht="130" height="130">`;
+            html += "</div>";
+        }
+        html += "</div>"
     }
-    html += "</div>"
 
     return html;
 }
@@ -218,6 +268,26 @@ function avancar() {
     } else {
         ++COLUNADESTACADA;
     }
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
+}
+
+function finalizar() {
+    LINHADESTACADA = 0;
+    COLUNADESTACADA = 0;
+
+    var result = $('#resultado');
+    result.html(gerarResultado());
+    var botao = $('#bts-resultado');
+    botao.html(gerarBotoes());
+}
+
+function reiniciar() {
+    LINHADESTACADA = 1;
+    COLUNADESTACADA = 1;
 
     var result = $('#resultado');
     result.html(gerarResultado());
@@ -312,6 +382,14 @@ $(function () {
 
     $(document).on('click', '#avancar', function() {
         avancar();
+    });
+
+    $(document).on('click', '#finalizar', function() {
+        finalizar();
+    });
+
+    $(document).on('click', '#reiniciar', function() {
+        reiniciar();
     });
 });
 

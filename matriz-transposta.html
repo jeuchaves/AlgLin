@@ -16,7 +16,7 @@
   <script src="vendor/popper/popper.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="js/subtracao.js"></script>  
+  <script src="js/matriz-transposta.js"></script>  
 </head>
 
 <body>
@@ -67,8 +67,9 @@
   <header class="masthead">
       <div class="overlay">
           <div class="container">
-          <h1 class="display-3 text-white">Subtração</h1>
-          <h4 class="lead text-white">
+          <h1 class="display-2 text-white">Matriz</h1>
+          <h2 class="display-4 text-white">Tranposta</h2>
+          <h4 class="lead text-white espaco">
               Deslize para baixo e <strong>faça</strong> o que é pedido.
           </h4>
       </div>
@@ -78,14 +79,14 @@
     <div class="row espaco">
       <div class="col-md-6 align-self-center">
         <p class="lead">
-          Nessa operação, as duas matrizes possuem tamanhos iguais. Então, os valores das linhas e colunas serão usados para as duas matrizes.<br>
+          Nessa operação, se usa apenas uma matriz.<br>
           Não é permitido matrizes superiores a <strong>4x4</strong>. Qualquer valor acima disso será automaticamente mudado para <strong>3x3</strong>. 
         </p>
       </div>
       <div class="col-md-6 justify-content-center">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Tamanho das Matrizes</h5>
+            <h5 class="card-title">Tamanho da Matriz</h5>
             <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
 
             <form class="conteudo">
@@ -105,8 +106,8 @@
         <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
         <hr class="conteudo">
         <div class="row"> 
-          <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz A</h5>
+          <div class="col-md-6">
+            <h5 class="card-title text-center">Matriz</h5>
             <form>
               <table align="center" id="MatrizA">
                 <tr>
@@ -148,45 +149,6 @@
 
           <div class="col-md-2 align-self-center text-center animation">
             <img id="calcular" class="rounded-circle" src="img/sinal igual.png" width="180" height="180">
-          </div>
-
-          <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz B</h5>
-            <table align="center" id="MatrizB">
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b11" type="number" id="b11">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b12" type="number" id="b12">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b13" type="number" id="b13">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b21" type="number" id="b21">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b22" type="number" id="b22">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b23" type="number" id="b23">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b31" type="number" id="b31">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b32" type="number" id="b32">
-                </td>
-                <td>
-                  <input class="form-control input-matriz" placeholder="b33" type="number" id="b33">
-                </td>
-              </tr>
-            </table>
           </div>
         </div>
       </div>

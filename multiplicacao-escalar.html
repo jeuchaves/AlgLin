@@ -7,10 +7,10 @@
   <meta name="description" content="">
 
   <title>TIC - Álgebra Linear</title>
-  <link rel="shortcut icon" href="img/logo.png">
+  <!--<link rel="shortcut icon" href="img/logo.png">-->
 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/estilo.css" rel="stylesheet">
+  <link href="css/estiloOperacao.css" rel="stylesheet">
 
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/popper/popper.min.js"></script>
@@ -22,11 +22,10 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="index.html">
-      <img src="img/logo.png" class="logo">
+      <!--<img src="img/logo.png" class="logo">-->
       <span>AlgLin</span>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -39,8 +38,7 @@
           <a class="nav-link" href="sobre.html">Sobre</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Operações
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -48,6 +46,7 @@
             <a class="dropdown-item" href="subtracao.html">Subtração</a>
             <a class="dropdown-item" href="multiplicacao-matricial.html">Multiplicação Matricial</a>
             <a class="dropdown-item" href="multiplicacao-escalar.html">Multiplicação Escalar</a>
+            <a class="dropdown-item" href="matriz-transposta.html">Matriz Transposta</a>
             <a class="dropdown-item" href="determinante.html">Determinante</a>
             <a class="dropdown-item" href="matriz-inversa.html">Matriz Inversa</a>
             <a class="dropdown-item" href="sistema-linear.html">Sistema Linear</a>
@@ -56,34 +55,32 @@
           </div>
         </li>
       </ul>
+      <!--
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+      <button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
       </form>
+      -->
     </div>
   </nav>
 
-  <main class="conteudo container">
-    <div class="text-center">
-      <h1 class="display-3">Multiplicação Escalar</h1>
-      <blockquote class="blockquote">
-        <p class="mb-0 lead">
-                O termo multiplicação escalar refere-se ao produto de um número real com uma matriz. 
-                Em multiplicações escalares, cada elemento da matriz é multiplicado pelo escalar determinado.
-        </p>
-        <footer class="blockquote-footer">Wikipedia, Aluno do
-          <cite title="Source Title">Lucas Neggri</cite>
-        </footer>
-      </blockquote>
+  <header class="masthead">
+    <div class="overlay">
+      <div class="container">
+      <h1 class="display-4 text-white">Multiplicação</h1>
+      <h4 class="display-4 text-white">Escalar</h4>
+      <h4 class="lead text-white espaco">
+        Deslize para baixo e <strong>faça</strong> o que é pedido.
+      </h4>
     </div>
+  </header>
 
+  <main class="conteudo container">
     <div class="row espaco">
       <div class="col-md-6 align-self-center">
         <p class="lead">
-          A <strong>matriz escalar</strong> possui apenas uma matrizes, onde todas as células dessa matriz
-          serão multiplicadas pelo número escalar, na qual se deve informar no quadro ao lado.<Br> 
-          Para a sua facilidade, só é permitido criar uma matriz de tamanho máximo <strong>4x4</strong>.
-          Já o escalar, possui um limite enorme (ainda não declarado).
+          Nessa operação, informa-se apenas o tamanho de uma matriz <strong>e</strong> um número para ser multiplicado por ela.<br>
+          Não é permitido matrizes superiores a <strong>4x4</strong>. Qualquer valor acima disso será automaticamente mudado para <strong>3x3</strong>.
         </p>
       </div>
       <div class="col-md-6 justify-content-center">
@@ -119,7 +116,7 @@
           </div>
 
           <div class="col-md-2 align-self-center text-center animation">
-            <img id="calcular" class="rounded-circle" src="img/template.jpg" width="130" height="130">
+            <img id="calcular" class="rounded-circle" src="img/sinal igual.png" width="180" height="180">
           </div>
 
           <div class="col-md-5">
@@ -169,7 +166,7 @@
         <h1 class="display-3">Passo a Passo</h1>
         <div id="resultado">
           <p class="lead">
-            Após <strong>inserir os dados</strong> nas matrizes e <strong>clicar</strong> sobre o circulo. Seu resultado aparecerá aqui.
+            Após <strong>inserir os dados</strong> nas matrizes, <strong>clique</strong> sobre o sinal de igualdade. Seu resultado aparecerá aqui.
           </p>
         </div>
         <div id="bts-resultado" class="col-xl-12"></div>

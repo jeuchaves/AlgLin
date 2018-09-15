@@ -1,0 +1,87 @@
+body {
+  padding-top: 54px;
+}
+
+.animation {
+  transition: transfomr .2s;
+}
+
+.animation img {
+  transition: all 0.3s;
+}
+
+.animation:hover img {
+  transform: scale(1.1);
+}
+
+.linha {
+  margin-left: 10%;
+  margin-right: 10%; 
+}
+
+.conteudo {
+  margin-top: 25px;
+}
+
+.espaco {
+  margin-top: 75px;
+}
+
+.slide {
+  width: 100%;
+  height: 500px;
+}
+
+table td, table th {
+  padding: 1px;
+}
+
+.input-matriz::-webkit-outer-spin-button,
+.input-matriz::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-matriz {
+  width: 100px;
+  height: 50px;
+  border-radius: 3px;
+  -moz-appearance: textfield;
+}
+
+.input-escalar {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rodape {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.logo {
+  height: 40px;
+}
+
+header.masthead {
+  background: url('../img/capa.png') no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+header.masthead > .overlay {
+  padding: 5rem 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 992px) {
+  header.masthead > .overlay {
+      padding: 10rem 0;
+  }
+}

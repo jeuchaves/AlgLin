@@ -1,4 +1,4 @@
 # Leia-me
 
-Esta página estilosa foi feita trocando a fonte com a tag display e sem o uso de templates.
+O leiaute pode ser alterado sem aviso prévio
 -- Jeú Chaves Lima
