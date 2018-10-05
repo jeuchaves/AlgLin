@@ -1,52 +1,168 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Ferramenta de Ensino de Álgebra Linear">
-    <meta name="keywords" content="AlgLin, Álgebra Linear, Matemática">
-    <meta name="author" content="Jeú Chaves Lima">
-    <meta name="author" content="Rino Cardoso Moreira Junior">
+  <title>AlgLin</title>
 
-    <title>AlgLin</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/operacao.css" rel="stylesheet">
 
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/estilo.css" rel="stylesheet">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper/popper.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/soma.js"></script>  
+</head>
 
-    <script src="js/soma.js"></script>
-  </head>
+<body>
+  <div class="caixa">
+    <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">AlgLin</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="operacoes.html">Operações</a>
+            <a class="nav-link" href="sobre.html">Sobre</a>
+          </nav>
+        </div>
+      </header>
 
-  <body class="text-center">
-
-      <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-          <div class="inner">
-            <h3 class="masthead-brand">Soma</h3>
-            <nav class="nav nav-masthead justify-content-center">
-              <a class="nav-link" href="index.html">Inicio</a>
-              <a class="nav-link" href="operacoes.html">Operações</a>
-              <a class="nav-link" href="sobre.html">Sobre</a>
-            </nav>
-          </div>
-        </header>
-  
-        <main role="main" class="inner capa">
-          <h1 class="capa-heading">Soma de Matrizes</h1>
-          <p class="lead p-3" id="texto">
-            Quando se têm duas matrizes de tamanhos <strong>equivalentes</strong>, é possível somar seus elementos
-            e obter uma nova matriz com o resultado da operação. Abaixo, ensinaremos como realizar essa operação.
-          </p>
-        </main>
-  
-        <footer class="mastfoot mt-auto">
-          <div class="inner">
-            <p>Copyright &copy; AlgLin 2018</p>
-          </div>
-        </footer>
+      <div class="container">
+        <h1 class="capa-heading m-4">Operação Soma</h1>
+        <p class="lead p-3" id="texto">
+          Quando se têm duas matrizes de tamanhos equivalentes (iguais), é possível somar os valores de suas
+          células e atribuir a uma nova matriz resultante.
+        </p>
       </div>
+    </div>
+  </div>
+
+  <main class="container p-4">
+    <div class="row">
+      <div class="col-md-6 align-self-center">
+        <p class="lead">
+          Nessa operação, as duas matrizes possuem tamanhos iguais. Então, os valores das linhas e colunas serão usados para as duas matrizes.<br>
+          Não é permitido matrizes superiores a <strong>4x4</strong>. Qualquer valor acima disso será automaticamente mudado para <strong>3x3</strong>. 
+        </p>
+      </div>
+      <div class="col-md-6 justify-content-center">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tamanho das Matrizes</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
+            <div class="form-group">
+              <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
+            </div>
+            <div class="form-group">
+              <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 p-4">
+      <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
+      <hr>
+      <div class="row"> 
+        <div class="col-md-5">
+          <h5 class="card-title text-center">Matriz A</h5>
+          <table align="center" id="MatrizA">
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="a11" type="number" id="a11">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a12" type="number" id="a12">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a13" type="number" id="a13">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="a21" type="number" id="a21">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a22" type="number" id="a22">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a23" type="number" id="a23">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="a31" type="number" id="a31">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a32" type="number" id="a32">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="a33" type="number" id="a33">
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="col-md-2 align-self-center text-center animation">
+          <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
+        </div>
+
+        <div class="col-md-5">
+          <h5 class="card-title text-center">Matriz B</h5>
+          <table align="center" id="MatrizB">
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="b11" type="number" id="b11">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b12" type="number" id="b12">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b13" type="number" id="b13">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="b21" type="number" id="b21">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b22" type="number" id="b22">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b23" type="number" id="b23">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input class="form-control input-matriz" placeholder="b31" type="number" id="b31">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b32" type="number" id="b32">
+              </td>
+              <td>
+                <input class="form-control input-matriz" placeholder="b33" type="number" id="b33">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      </div>
+      <div id="erro-input-vazio"></div>
+    </div>
+
+    <div class="text-center p-4" id="passo-a-passo"></div>
+  </main>
+
+  <footer class="py-5 p-4">
+    <hr class="linha">
+    <div class="container">
+      <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+    </div>
+  </footer>
+</body>
 </html>

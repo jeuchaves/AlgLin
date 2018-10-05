@@ -163,17 +163,17 @@ function gerarBotoes() {
     if(LINHADESTACADA == 0 && COLUNADESTACADA == 0) {
         $("#bts-resultado").removeClass("row");
         html += `<div class="align-self-center text-center animation">`;
-        html += `<img id="reiniciar" class="rounded-circle" src="img/botoes/recarregar.png" widht="130" height="130">`;
+        html += `<img id="reiniciar" class="icone-p" src="img/botao/reiniciar.png">`;
         html += "</div>";    
     } else {
         html += `<div class="col-md-6">`;
         if(LINHADESTACADA == 1 && COLUNADESTACADA == 1) {
             html += `<div class="align-self-center text-right">`;
-            html += `<img class="rounded-circle" src="img/botoes/voltar desabilitado.jpg" widht="130" height="130">`;
+            html += `<img class="icone-p" src="img/botao/voltar.png">`;
             html += "</div>";
         } else {
             html += `<div class="align-self-center text-right animation">`;
-            html += `<img id="voltar" class="rounded-circle" src="img/botoes/voltar.png" widht="130" height="130">`;
+            html += `<img id="voltar" class="icone-p" src="img/botao/voltar.png">`;
             html += "</div>";
         }
         html += "</div>"
@@ -181,11 +181,11 @@ function gerarBotoes() {
         html += `<div class="col-md-6">`;
         if(LINHADESTACADA == L && COLUNADESTACADA == C) {
             html += `<div class="align-self-center text-left animation">`;
-            html += `<img id="finalizar" class="rounded-circle" src="img/botoes/finalizar.png" widht="130" height="130">`;
+            html += `<img id="finalizar" class="icone-p" src="img/botao/finalizar.png">`;
             html += "</div>";    
         } else {
             html += `<div class="align-self-center text-left animation">`;
-            html += `<img id="avancar" class="rounded-circle" src="img/botoes/avancar.png" widht="130" height="130">`;
+            html += `<img id="avancar" class="icone-p" src="img/botao/avancar.png">`;
             html += "</div>";
         }
         html += "</div>"

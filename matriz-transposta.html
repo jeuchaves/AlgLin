@@ -2,81 +2,48 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-
-  <title>TIC - Álgebra Linear</title>
-  <!--<link rel="shortcut icon" href="img/logo.png">-->
-
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/estiloOperacao.css" rel="stylesheet">
-
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/popper/popper.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-  <script src="js/matriz-transposta.js"></script>  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+  
+    <title>AlgLin</title>
+  
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/operacao.css" rel="stylesheet">
+  
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  
+    <script src="js/matriz-transposta.js"></script>  
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="index.html">
-          <!--<img src="img/logo.png" class="logo">-->
-          <span>AlgLin</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Pagina Inicial</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="sobre.html">Sobre</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Operações
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="soma.html">Soma</a>
-              <a class="dropdown-item" href="subtracao.html">Subtração</a>
-              <a class="dropdown-item" href="multiplicacao-matricial.html">Multiplicação Matricial</a>
-              <a class="dropdown-item" href="multiplicacao-escalar.html">Multiplicação Escalar</a>
-              <a class="dropdown-item" href="matriz-transposta.html">Matriz Transposta</a>
-              <a class="dropdown-item" href="determinante.html">Determinante</a>
-              <a class="dropdown-item" href="matriz-inversa.html">Matriz Inversa</a>
-              <a class="dropdown-item" href="sistema-linear.html">Sistema Linear</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="operacoes.html">Todas Operações</a>
+    <div class="caixa">
+        <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
+          <header class="masthead mb-auto">
+            <div class="inner">
+              <h3 class="masthead-brand">AlgLin</h3>
+              <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="index.html">Inicio</a>
+                <a class="nav-link" href="operacoes.html">Operações</a>
+                <a class="nav-link" href="sobre.html">Sobre</a>
+              </nav>
             </div>
-          </li>
-        </ul>
-        <!--
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
-        -->
-      </div>
-    </nav>
-
-  <header class="masthead">
-      <div class="overlay">
+          </header>
+    
           <div class="container">
-          <h1 class="display-2 text-white">Matriz</h1>
-          <h2 class="display-4 text-white">Tranposta</h2>
-          <h4 class="lead text-white espaco">
-              Deslize para baixo e <strong>faça</strong> o que é pedido.
-          </h4>
+            <h1 class="capa-heading m-4">Matriz Transposta</h1>
+            <p class="lead p-3" id="texto">
+              Aprenda a rescrever uma matriz a fim de inverter seus valores. Tendo os valores de linhas em colunas
+              e os de colunas em linhas
+            </p>
+          </div>
+        </div>
       </div>
-  </header>
 
-  <main class="conteudo container">
-    <div class="row espaco">
+  <main class="p-4 container">
+    <div class="row">
       <div class="col-md-6 align-self-center">
         <p class="lead">
           Nessa operação, se usa apenas uma matriz.<br>
@@ -148,7 +115,7 @@
           </div>
 
           <div class="col-md-2 align-self-center text-center animation">
-            <img id="calcular" class="rounded-circle" src="img/sinal igual.png" width="180" height="180">
+            <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
           </div>
         </div>
       </div>

@@ -1,97 +1,138 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <title>AlgLin</title>
 
-    <title>TIC - Álgebra Linear</title>
-    <!--<link rel="shortcut icon" href="img/logo.png">-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/operacao.css" rel="stylesheet">
 
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/estiloOperacao.css" rel="stylesheet">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper/popper.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  </head>
+  <script src="js/determinante.js"></script>  
+</head>
 
-  <body>
+<body>
+  <div class="caixa">
+    <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">AlgLin</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="operacoes.html">Operações</a>
+            <a class="nav-link" href="sobre.html">Sobre</a>
+          </nav>
+        </div>
+      </header>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="index.html">
-          <!--<img src="img/logo.png" class="logo">-->
-          <span>AlgLin</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Pagina Inicial</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="sobre.html">Sobre</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Operações
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="soma.html">Soma</a>
-              <a class="dropdown-item" href="subtracao.html">Subtração</a>
-              <a class="dropdown-item" href="multiplicacao-matricial.html">Multiplicação Matricial</a>
-              <a class="dropdown-item" href="multiplicacao-escalar.html">Multiplicação Escalar</a>
-              <a class="dropdown-item" href="matriz-transposta.html">Matriz Transposta</a>
-              <a class="dropdown-item" href="determinante.html">Determinante</a>
-              <a class="dropdown-item" href="matriz-inversa.html">Matriz Inversa</a>
-              <a class="dropdown-item" href="sistema-linear.html">Sistema Linear</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="operacoes.html">Todas Operações</a>
-          </div>
-        </li>
-      </ul>
-      <!--
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
-      </form>
-      -->
+      <div class="container">
+        <h1 class="capa-heading m-4">Operação Determinantes</h1>
+        <p class="lead p-3" id="texto">
+          Veja como descobrir qual é o <strong>número obtido</strong> pela matriz determinada. Vale notar que essa operação
+          ainda está em fase de construção. Por esse motivo, é possível somente realizar
+          operações com matrizes de até o tamanho 3x3.<br>
+          Além disso, só podem ser feitas com valores quadráticos, ou seja, 1x1, 2x2...
+        </p>
+      </div>
     </div>
-  </nav>
+  </div>
 
+  <main class="conteudo container p-4">
+    <div class="row espaco">
+      <div class="col-md-6 align-self-center">
+        <p class="lead">
+          Uma matriz determinante trabalha com apenas uma matriz. Além de ser <strong>única</strong>, 
+          deve ser <strong>quadrática</strong>, como explicado no texto acima. Ainda por cima, 
+          os valores limites para essa operação é <strong>3x3</strong>;
+        </p>
+      </div>
+      <div class="col-md-6 justify-content-center">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tamanho da Matriz</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Informe o tamanho da matriz quadrática</h6>
 
-    <main class="conteudo espaco">
-        <div class="text-center">
-            <h1 class="display-3">Site em construção</h1>
-            <blockquote class="blockquote">
-                <p class="mb-0 lead">
-                    Desculpe! Está pagina ainda está em fase de desenvolvimento.
-                </p>
-                <!-- <footer class="blockquote-footer">Tempo pa</footer> -->
-            </blockquote>
-
-            <div class="text-center">
-                <img class="rounded-circle" src="img/imagem1.png" width="300" height="300">
-            </div>
+            <input id="tamanho" type="number" placeholder="Tamanho da Matriz" name="tamanho" min="1" max="3" class="form-control">
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
 
-    <footer class="py-5 conteudo">
-        <hr class="linha">
-        <div class="container">
-          <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+    <div class="col-xl-12 p-4">
+      <h1 class="display-4 text-center">Insira os dados na matriz</h1>
+      <hr class="conteudo">
+      <div class="row"> 
+        <div class="col-md-6">
+          <h5 class="card-title text-center">Matriz A</h5>
+          <form>
+            <table align="center" id="MatrizA">
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a11" type="number" id="a11">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a12" type="number" id="a12">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a13" type="number" id="a13">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a21" type="number" id="a21">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a22" type="number" id="a22">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a23" type="number" id="a23">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a31" type="number" id="a31">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a32" type="number" id="a32">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" placeholder="a33" type="number" id="a33">
+                </td>
+              </tr>
+            </table>
+          </form>
         </div>
-    </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <div class="col-md-2 align-self-center text-center animation">
+          <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
+        </div>        
+      </div>
+      <div id="erro"></div>
+    </div>
 
-  </body>
+    <div class="text-center espaco">
+        <h1 class="display-3">Passo a Passo</h1>
+        <div id="resultado" class="col-xl-12">
+          <p class="lead">
+            Após <strong>inserir os dados</strong> nas matrizes, <strong>clique</strong> sobre o sinal de igualdade. Seu resultado aparecerá aqui.
+          </p>
+        </div>
+        <div id="bts-resultado" class="col-xl-12"></div>
+    </div>
+  </main>
 
+  <footer class="py-5 conteudo">
+    <hr class="linha">
+    <div class="container">
+      <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+    </div>
+  </footer>
+</body>
 </html>

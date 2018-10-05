@@ -1,16 +1,15 @@
-<!-- Sem responsividade -->
-
 <!DOCTYPE html>
 <html>
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Ferramenta de Ensino de Álgebra Linear">
+    <meta name="keywords" content="AlgLin, Álgebra Linear, Matemática">
+    <meta name="author" content="Jeú Chaves Lima">
+    <meta name="author" content="Rino Cardoso Moreira Junior">
 
     <title>AlgLin</title>
-    <link rel="shortcut icon" href="img/logo.png">
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/estilo.css" rel="stylesheet">
@@ -18,118 +17,32 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="js/index.js"></script>
   </head>
 
   <body class="text-center">
-    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto text-shadow text-link">
-        <h3 class="masthead-brand">AlgLin</h3>
-        <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link" href="index.html">Inicio</a>
-          <a class="nav-link active" href="sobre.html">Sobre</a>
-          <a class="nav-link" href="operacoes.html">Operações</a>
-          <a class="nav-link" href="algebra.html">Álgebra Linear?</a>
-        </nav>
-      </header>
 
-      <main role="main">
-        <div class="p-4 text-shadow">
-          <div class="media">
-            <img class="align-self-center mr-3 perfil" src="img/sem-foto.jpg" alt="Robo Algeo">
-            <div class="media-body">
-              <h5 class="mt-0">Apresentação</h5>
-              <p class="text-justify">
-                Eu sou <strong>Algeo</strong>, seu amigo virtual que está sendo programado para resolver 
-                seus problemas de <a href="algebra.html">Álgebra Linear</a>. Estou aqui como auxiliador 
-                de seus estudos e devo ser usado como apoio ao conteúdo central ministrado por seu professor.<br>
-                Por enquanto, não tenho como lhe responder, mas caso queira fazer alguma sugestão ou pergunta envie
-                um email aos desenvolvedores desse site: <b class="badge badge-light">jeuchaveslima@gmail.com</b> ou <b class="badge badge-light">rino.ifms@gmail.com</b>                 
-              </p>
-            </div>
+      <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+          <div class="inner">
+            <h3 class="masthead-brand cor-vermelha">AlgLin</h3>
+            <nav class="nav nav-masthead justify-content-center">
+              <a class="nav-link" href="index.html">Inicio</a>
+              <a class="nav-link" href="operacoes.html">Operações</a>
+              <a class="nav-link active" href="sobre.html">Sobre</a>
+            </nav>
           </div>
-          <hr>
-          <h1 class="p-4">Introdução a ferramenta</h1>
-          <div class="p-3">
-            <p class="lead text-justify">
-              A primeira pergunta que farei é sobre qual operação deseja aprender, para dar uma 
-              olhada nessa primeira página <a target=“_blank” href="operacoes.html">(clique aqui)</a>.
-              <br>Depois da escolha da operação, preencha todos os campos de inserção que estiverem na tela,
-              não se preocupe, os campos estão bem detalhados sobre o que se deve fazer.
-              Mais detalhes serão exibidos durante a inserção dos dados nas páginas referentes.
-            </p>
+        </header>
+  
+        <main role="main" class="inner capa">
+          
+        </main>
+  
+        <footer class="mastfoot mt-auto">
+          <div class="inner">
+            <p>Copyright &copy; AlgLin 2018</p>
           </div>
-          <hr>
-          <h1 class="p-4">Motivo</h1>
-          <div class="p-3">
-            <p class="lead text-justify">
-                O Século XXI tornou-se a era digital, onde é imprescindível aliar a velocidade e a
-                formatação obtida a partir dos softwares com a necessidade de se sistematizar alguns
-                tópicos de Matemática, como a Álgebra Linear, onde a mecanização dos processos de
-                solução de sistemas lineares torna-se enfadonho e confuso ao ser feito no método
-                tradicional de ensino. Assim, propusemos uma Web APP para auxiliar no processo de ensino-
-                aprendizagem de Álgebra Linear: a TIC AlgLin, envolvendo operações entre matrizes e a
-                utilização do Algoritmo de Gauss Jordan como base para o cálculo de determinantes,
-                sistemas lineares e inversão de matrizes.<br>
-                Essa ferramenta foi desenvolvida com o intuito de ser um apoio didático; assim, o usuário
-                não deve esperar que aprenda álgebra linear só ao utilizar esse site, sendo leigo, mas deve
-                antes ter as noções básicas do tópico. O público-alvo são os estudantes que estão
-                aprendendo álgebra linear na escola ou revendo o conteúdo.
-            </p>
-          </div>
-          <hr>
-        </div>
-        <div class="p-4 text-shadow">
-          <h1>Quem somos?</h1>
-        </div>
-        <div class="row p-4">
-          <div class="col-md-3">
-            <div class="card" style="width: 16rem;">
-              <img class="card-img-top" src="img/Jeu.jpg" alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Discente</h5>
-                <p class="card-text">Jeú Chaves Lima</p>
-                <a target=“_blank” href="http://lattes.cnpq.br/2634457590268078" class="btn btn-primary">Curriculo Lattes</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card" style="width: 16rem;">
-              <img class="card-img-top" src="img/Rino.jpg" alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Discente</h5>
-                <p class="card-text">Rino Cardoso Moreira Junior</p>
-                <a href="#" class="btn btn-primary disabled">Curriculo Lattes</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card" style="width: 16rem;">
-              <img class="card-img-top" src="img/Lucas.jpeg" alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Docente</h5>
-                <p class="card-text">Lucas H. Negri</p>
-                <a target=“_blank” href="http://lattes.cnpq.br/0726448318510315" class="btn btn-primary">Curriculo Lattes</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card" style="width: 16rem;">
-              <img class="card-img-top" src="img/Diogo.gif" alt="Imagem de capa do card">
-              <div class="card-body">
-                <h5 class="card-title">Docente</h5>
-                <p class="card-text">Diogo C. Milagres</p>
-                <a target=“_blank” href="http://lattes.cnpq.br/2178200440296535" class="btn btn-primary">Curriculo Lattes</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <footer class="mt-auto text-shadow">
-        <div>
-          <p>Copyright &copy; AlgLin 2018</p>
-        </div>
-      </footer>
-    </div>
-  </body>
+        </footer>
+      </div>
 </html>
