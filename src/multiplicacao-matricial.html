@@ -1,176 +1,310 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
 
-  <title>AlgLin</title>
+    <title>AlgLin</title>
 
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/operacao.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/operacao.css" rel="stylesheet" />
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/mult_matricial.js"></script>
+  </head>
 
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/popper/popper.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <body>
+    <div class="caixa">
+      <div
+        class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center"
+      >
+        <header class="masthead mb-auto">
+          <div class="inner">
+            <h3 class="masthead-brand">AlgLin</h3>
+            <nav class="nav nav-masthead justify-content-center">
+              <a class="nav-link" href="index.html">Inicio</a>
+              <a class="nav-link" href="operacoes.html">Operações</a>
+              <a class="nav-link" href="sobre.html">Sobre</a>
+            </nav>
+          </div>
+        </header>
 
-  <script src="js/multiplicacao-matricial.js"></script>  
-</head>
-
-<body>
-  <div class="caixa">
-    <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">AlgLin</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link" href="index.html">Inicio</a>
-            <a class="nav-link" href="operacoes.html">Operações</a>
-            <a class="nav-link" href="sobre.html">Sobre</a>
-          </nav>
-        </div>
-      </header>
-  
-      <div class="container">
-      <h1 class="capa-heading m-4">Multiplicação de Matrizes</h1>
+        <div class="container">
+          <h1 class="capa-heading m-4">Multiplicação de Matrizes</h1>
           <p class="lead p-3" id="texto">
-              A multiplicação de matrizes obedecem algumas regras fundamentais, uma delas é que 
-              o <strong>tamanho da coluna (Matriz A)</strong> da primeira matriz deve ser igual ao 
-              <strong>tamanho da linha (Matriz B)</strong> da segunda matriz.<br>
-              Fora isso, as outras dimensões se tornam relativas. 
+            A multiplicação de matrizes obedecem algumas regras fundamentais,
+            uma delas é que o <strong>tamanho da coluna (Matriz A)</strong> da
+            primeira matriz deve ser igual ao
+            <strong>tamanho da linha (Matriz B)</strong> da segunda matriz.<br />
+            Fora isso, as outras dimensões se tornam relativas.
           </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <main class="container p-4">
-    <div class="row">
-      <div class="col-md-6 justify-content-center">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Tamanho da Matriz A</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
-            <div class="form-group">
-                <input id="numLinhasA" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
+    <main class="container p-4">
+      <div class="row">
+        <div class="col-md-6 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tamanho da Matriz A</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Informe a quantidade de linhas e colunas
+              </h6>
+              <div class="form-group">
+                <input
+                  id="numLinhasA"
+                  type="number"
+                  placeholder="Quantidade de Linhas"
+                  name="linha"
+                  min="1"
+                  max="4"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  id="numColunasA"
+                  type="number"
+                  placeholder="Quantidade de Colunas"
+                  name="coluna"
+                  min="1"
+                  max="4"
+                  class="form-control"
+                />
+              </div>
             </div>
-            <div class="form-group">
-                <input id="numColunasA" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-6 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tamanho das Matriz B</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Informe a quantidade de linhas e colunas
+              </h6>
+              <div class="form-group">
+                <input
+                  id="numLinhasB"
+                  type="number"
+                  placeholder="Quantidade de Linhas"
+                  name="linha"
+                  min="1"
+                  max="4"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  id="numColunasB"
+                  type="number"
+                  placeholder="Quantidade de Colunas"
+                  name="coluna"
+                  min="1"
+                  max="4"
+                  class="form-control"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6 justify-content-center">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Tamanho das Matriz B</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
-            <div class="form-group">
-                <input id="numLinhasB" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
-            </div>
-            <div class="form-group">
-                <input id="numColunasB" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="erro-coluna-diferente-linha"></div>
-    <div class="col-xl-12 p-4" id="insercao-nas-matrizes">
-      <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
-      <hr>
-      <div class="row"> 
-        <div class="col-md-5">
-          <h5 class="card-title text-center">Matriz A</h5>
+      <div id="erro-coluna-diferente-linha"></div>
+      <div class="col-xl-12 p-4" id="insercao-nas-matrizes">
+        <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
+        <hr />
+        <div class="row">
+          <div class="col-md-5">
+            <h5 class="card-title text-center">Matriz A</h5>
             <table align="center" id="MatrizA">
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a11" type="number" id="a11">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a11"
+                    type="number"
+                    id="a11"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a12" type="number" id="a12">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a12"
+                    type="number"
+                    id="a12"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a13" type="number" id="a13">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a13"
+                    type="number"
+                    id="a13"
+                  />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a21" type="number" id="a21">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a21"
+                    type="number"
+                    id="a21"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a22" type="number" id="a22">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a22"
+                    type="number"
+                    id="a22"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a23" type="number" id="a23">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a23"
+                    type="number"
+                    id="a23"
+                  />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a31" type="number" id="a31">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a31"
+                    type="number"
+                    id="a31"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a32" type="number" id="a32">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a32"
+                    type="number"
+                    id="a32"
+                  />
                 </td>
                 <td>
-                  <input class="form-control input-matriz" placeholder="a33" type="number" id="a33">
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="a33"
+                    type="number"
+                    id="a33"
+                  />
                 </td>
               </tr>
             </table>
-        </div>
+          </div>
 
-        <div class="col-md-2 align-self-center text-center animation">
-          <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
-        </div>
+          <div class="col-md-2 align-self-center text-center animation">
+            <img
+              id="calcular"
+              class="icone-g"
+              src="img/botao/igual.png"
+              width="180"
+              height="180"
+            />
+          </div>
 
-        <div class="col-md-5">
-          <h5 class="card-title text-center">Matriz B</h5>
-          <table align="center" id="MatrizB">
-            <tr>
-              <td>
-                <input class="form-control input-matriz" placeholder="b11" type="number" id="b11">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b12" type="number" id="b12">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b13" type="number" id="b13">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input class="form-control input-matriz" placeholder="b21" type="number" id="b21">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b22" type="number" id="b22">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b23" type="number" id="b23">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input class="form-control input-matriz" placeholder="b31" type="number" id="b31">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b32" type="number" id="b32">
-              </td>
-              <td>
-                <input class="form-control input-matriz" placeholder="b33" type="number" id="b33">
-              </td>
-            </tr>
-          </table>
+          <div class="col-md-5">
+            <h5 class="card-title text-center">Matriz B</h5>
+            <table align="center" id="MatrizB">
+              <tr>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b11"
+                    type="number"
+                    id="b11"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b12"
+                    type="number"
+                    id="b12"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b13"
+                    type="number"
+                    id="b13"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b21"
+                    type="number"
+                    id="b21"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b22"
+                    type="number"
+                    id="b22"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b23"
+                    type="number"
+                    id="b23"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b31"
+                    type="number"
+                    id="b31"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b32"
+                    type="number"
+                    id="b32"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control input-matriz"
+                    placeholder="b33"
+                    type="number"
+                    id="b33"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="erro-input-vazio"></div>
-    <div class="text-center p-4" id="passo-a-passo"></div>
-  </main>
+      <div id="erro-input-vazio"></div>
+      <div class="text-center p-4" id="passo-a-passo"></div>
+    </main>
 
-  <footer class="py-5 p-4">
-    <hr class="linha">
-    <div class="container">
-      <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
-    </div>
-  </footer>
-</body>
+    <footer class="py-5 p-4">
+      <hr class="linha" />
+      <div class="container">
+        <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+      </div>
+    </footer>
+  </body>
 </html>

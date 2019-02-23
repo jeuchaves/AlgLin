@@ -1,5 +1,7 @@
-function animacao (elemento) {
-  textoSeparado = elemento.text().split('');
+let $ = require("jquery");
+
+function animacao(elemento) {
+  textoSeparado = elemento.text().split("");
   elemento.text("");
   textoSeparado.forEach((letra, i) => {
     setTimeout(() => elemento.text(elemento.text() + letra), 75 * i);
@@ -7,8 +9,7 @@ function animacao (elemento) {
 }
 
 $(function() {
-  const titulo = $('#titulo');
+  const titulo = $("#titulo");
 
-  animacao(titulo);   
+  animacao(titulo);
 });
-
