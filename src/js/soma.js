@@ -1,5 +1,5 @@
 let $ = require("jquery");
-let { estiverEntre, instalarControles } = require("./utils");
+let utils = require("./utils");
 
 var L = 3;
 var C = 3;
@@ -11,77 +11,33 @@ var COLUNAATIVA = 1;
 
 var MA, MB, MC;
 
-console.log("teste");
-
-function gerarInputMatricial(prefixo, linha, coluna) {
-  var html = "";
-  for (var l = 1; l <= linha; ++l) {
-    html += "<tr>";
-    for (var c = 1; c <= coluna; ++c) {
-      html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="${prefixo}${l}${c}" type="number"></td>`;
-    }
-    html += "</tr>";
-  }
-  return html;
-}
-
-// *
 function redimensionarMatrizes() {
-  L = $("#numLinhas").val();
-  C = $("#numColunas").val();
+  let [numLinhas, numColunas] = utils.getEntradaTamanho();
+  L = numLinhas;
+  C = numColunas;
 
-  if (!estiverEntre(L, 1, 4)) L = 3;
-  if (!estiverEntre(C, 1, 4)) C = 3;
+  if (!utils.estiverEntre(L, 1, 4)) L = 3;
+  if (!utils.estiverEntre(C, 1, 4)) C = 3;
 
-  $("#MatrizA").html(gerarInputMatricial("a", L, C));
-  $("#MatrizB").html(gerarInputMatricial("b", L, C));
+  $("#MatrizA").html(utils.gerarEntradaMatricial("a", L, C));
+  $("#MatrizB").html(utils.gerarEntradaMatricial("b", L, C));
 }
 
-function estiverPreenchidoInput(prefixo, linha, coluna) {
-  var temErro = false;
-  for (var l = 1; l <= linha; ++l) {
-    for (var c = 1; c <= coluna; ++c) {
-      if ($(`#${prefixo}${l}${c}`).val() == "") {
-        $(`#${prefixo}${l}${c}`).addClass("alert-danger");
-        temErro = true;
-      } else $(`#${prefixo}${l}${c}`).removeClass("alert-danger");
-    }
-  }
-  if (temErro) return false;
-  return true;
-}
+function realizaOperacao(matrizA, matrizB, linha, coluna) {
+  let matriz = Array(linha);
 
-function tratarErroInputVazio() {
-  $("#erro-input-vazio").html(
-    `<p class="mb-0 lead text-center conteudo alert alert-danger">Para continuar é necessário que <strong>todos</strong> os campos estejam preenchidos, por favor, atribua um valor aos campos destacados</p>`
-  );
-}
-
-function criarMatriz(prefixo, linha, coluna) {
-  var matriz = Array(linha);
-  for (var l = 1; l <= linha; ++l) {
+  for (let l = 1; l <= linha; ++l) {
     matriz[l] = Array(coluna);
-    for (var c = 1; c <= coluna; ++c) {
-      matriz[l][c] = $(`#${prefixo}${l}${c}`).val();
-    }
-  }
-  return matriz;
-}
 
-// *
-function operarMatriz(matrizA, matrizB, linha, coluna) {
-  var matriz = Array(linha);
-  for (var l = 1; l <= linha; ++l) {
-    matriz[l] = Array(coluna);
-    for (var c = 1; c <= coluna; ++c) {
+    for (let c = 1; c <= coluna; ++c) {
       matriz[l][c] = parseFloat(matrizA[l][c]) + parseFloat(matrizB[l][c]);
-      matriz[l][c] = arredondar(matriz[l][c], 2);
+      matriz[l][c] = utils.arredondar(matriz[l][c]);
     }
   }
+
   return matriz;
 }
 
-// *
 function gerarEnunciado() {
   var html = "";
 
@@ -146,10 +102,12 @@ function imprimirResultado() {
   return html;
 }
 
-// * MUDA OS DADOS DOS RESULTADOS
 function realizarOperacao() {
-  if (!estiverPreenchidoInput("a", L, C) | !estiverPreenchidoInput("b", L, C)) {
-    tratarErroInputVazio();
+  if (
+    !utils.matrizEstaPreenchida("a", L, C) |
+    !utils.matrizEstaPreenchida("b", L, C)
+  ) {
+    utils.mostraErroEntradaIncompleta();
     return;
   } else {
     $("#erro-input-vazio").html("");
@@ -157,9 +115,9 @@ function realizarOperacao() {
 
   $("#passo-a-passo").html(criarPassoAPasso());
 
-  MA = criarMatriz("a", L, C);
-  MB = criarMatriz("b", L, C);
-  MC = operarMatriz(MA, MB, L, C);
+  MA = utils.recuperarMatriz("a", L, C);
+  MB = utils.recuperarMatriz("b", L, C);
+  MC = realizaOperacao(MA, MB, L, C);
 
   atualizarResultado();
 }
@@ -172,14 +130,6 @@ function criarPassoAPasso() {
   html += `<div id="botoes-passo-a-passo" class="col-xl-12"></div>`;
 
   return html;
-}
-
-function arredondar(numero, casasDecimais) {
-  casasDecimais = typeof casasDecimais !== "undefined" ? casasDecimais : 2;
-  return +(
-    Math.floor(numero + ("e+" + casasDecimais)) +
-    ("e-" + casasDecimais)
-  );
 }
 
 // *
@@ -305,5 +255,12 @@ function reiniciar() {
 }
 
 $(function() {
-  instalarControles(redimensionarMatrizes);
+  utils.instalarControles(
+    redimensionarMatrizes,
+    realizarOperacao,
+    voltar,
+    avancar,
+    finalizar,
+    reiniciar
+  );
 });
