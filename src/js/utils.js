@@ -1,9 +1,40 @@
 let $ = require("jquery");
 
 module.exports = {
-  estiverEntre: function(valor, min, max) {
-    if (valor >= min && valor <= max) return true;
-    return false;
+  /**
+   * Gera um botão, retornando o seu HTML.
+   */
+  gerarBotao: function(nomeImagem, semAnimacao) {
+    let html = "";
+    if (semAnimacao) {
+      html += `<div class="align-self-center text-center">`;
+    } else {
+      html += `<div class="align-self-center text-center animation">`;
+    }
+
+    html += `<img id="${nomeImagem}" class="icone-p" src="img/botao/${nomeImagem}.png">`;
+    html += "</div>";
+
+    return html;
+  },
+
+  /**
+   * Limita o valor para a faixa [min, max].
+   */
+  limitar: function(val, min, max) {
+    return Math.min(max, Math.max(min, val));
+  },
+
+  /**
+   * Retorna o leiaute principal da página.
+   */
+  criarPassoAPasso: function() {
+    let html = `<h1 class="display-3">Passo a Passo</h1>`;
+    html += `<hr class="linha">`;
+    html += `<div id="resultado" class="col-xl-12"></div>`;
+    html += `<div id="botoes-passo-a-passo" class="col-xl-12"></div>`;
+
+    return html;
   },
 
   /**
@@ -51,7 +82,8 @@ module.exports = {
 
     for (let l = 1; l <= numLinhas; ++l) {
       for (let c = 1; c <= numColunas; ++c) {
-        if ($(`#${prefixo}${l}${c}`).val() == "") {
+        let val = parseFloat($(`#${prefixo}${l}${c}`).val());
+        if (isNaN(val)) {
           $(`#${prefixo}${l}${c}`).addClass("alert-danger");
           temErro = true;
         } else {
@@ -84,8 +116,8 @@ module.exports = {
       sufixo = "";
     }
 
-    let numLinhas = $(`#numLinhas${sufixo}`).val();
-    let numColunas = $(`#numColunas${sufixo}`).val();
+    let numLinhas = parseInt($(`#numLinhas${sufixo}`).val());
+    let numColunas = parseInt($(`#numColunas${sufixo}`).val());
 
     return [numLinhas, numColunas];
   },
@@ -97,42 +129,5 @@ module.exports = {
     $("#erro-input-vazio").html(
       `<p class="mb-0 lead text-center conteudo alert alert-danger">Para continuar é necessário que <strong>todos</strong> os campos estejam preenchidos, por favor, atribua um valor aos campos destacados</p>`
     );
-  },
-
-  instalarControles: function(
-    redimensionarMatrizes,
-    realizarOperacao,
-    voltar,
-    avancar,
-    finalizar,
-    reiniciar
-  ) {
-    $("#numLinhas").change(function() {
-      redimensionarMatrizes();
-    });
-
-    $("#numColunas").change(function() {
-      redimensionarMatrizes();
-    });
-
-    $("#calcular").click(function() {
-      realizarOperacao();
-    });
-
-    $(document).on("click", "#voltar", function() {
-      voltar();
-    });
-
-    $(document).on("click", "#avancar", function() {
-      avancar();
-    });
-
-    $(document).on("click", "#finalizar", function() {
-      finalizar();
-    });
-
-    $(document).on("click", "#reiniciar", function() {
-      reiniciar();
-    });
   }
 };
