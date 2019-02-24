@@ -3,14 +3,14 @@ let utils = require("./utils");
 let OperacaoSoma = require("./operacao_soma");
 
 class OperacaoEscalar extends OperacaoSoma {
-  calcular(matrizA, numEscalar) {
+  calcular() {
     let res = Array(this.numLinhas);
 
     for (let l = 1; l <= this.numLinhas; ++l) {
       res[l] = Array(this.numColunas);
 
       for (let c = 1; c <= this.numColunas; ++c) {
-        res[l][c] = utils.arredondar(matrizA[l][c] * numEscalar);
+        res[l][c] = utils.arredondar(this.mA[l][c] * this.escalar);
       }
     }
 
@@ -35,12 +35,12 @@ class OperacaoEscalar extends OperacaoSoma {
   gerarEnunciado() {
     let html = `<p class="lead">`;
     html += `Multiplique o escalar <strong>${this.escalar}</strong>`;
-    html += `com o elemento `;
+    html += ` com o elemento `;
 
     let idx = `${this.linhaAtiva}${this.colunaAtiva}`;
     html += `<strong>a<sub>${idx}</sub></strong>.<br>`;
 
-    let calc = this.gerarCalculo(this.linhaAtiva, this.colunaAtivax);
+    let calc = this.gerarCalculo(this.linhaAtiva, this.colunaAtiva);
     html += `<strong>${calc}</strong>`;
     html += `</p>`;
 
@@ -77,8 +77,7 @@ class OperacaoEscalar extends OperacaoSoma {
 
   realizarOperacao() {
     let { numLinhas, numColunas } = this;
-    let escalar = parseFloat($("#numEscalar").val());
-    let erroEscalar = isNaN(escalar);
+    let erroEscalar = !utils.escalarEstaPreenchido();
     let erroMatriz = !utils.matrizEstaPreenchida("a", numLinhas, numColunas);
 
     if (erroEscalar || erroMatriz) {
@@ -91,7 +90,7 @@ class OperacaoEscalar extends OperacaoSoma {
     $("#passo-a-passo").html(utils.criarPassoAPasso());
 
     this.mA = utils.recuperarMatriz("a", numLinhas, numColunas);
-    this.escalar = escalar;
+    this.escalar = parseFloat($("#numEscalar").val());
     this.mC = this.calcular();
 
     this.atualizarResultado();

@@ -96,6 +96,22 @@ module.exports = {
   },
 
   /**
+   * Verifica se uma entrada escalar está preenchida.
+   */
+  escalarEstaPreenchido: function() {
+    let val = parseFloat($("#numEscalar").val());
+    let temErro = isNaN(val);
+
+    if (temErro) {
+      $("#numEscalar").addClass("alert-danger");
+    } else {
+      $("#numEscalar").removeClass("alert-danger");
+    }
+
+    return !temErro;
+  },
+
+  /**
    * Arredonda um número para uma quantidade de casas decimais.
    * O padrão é duas casas.
    */
@@ -127,7 +143,7 @@ module.exports = {
    */
   mostraErroEntradaIncompleta: function() {
     $("#erro-input-vazio").html(
-      `<p class="mb-0 lead text-center conteudo alert alert-danger">Para continuar é necessário que <strong>todos</strong> os campos estejam preenchidos, por favor, atribua um valor aos campos destacados</p>`
+      `<p class="mb-0 lead text-center conteudo alert alert-danger">Por favor, atribua um valor númerico aos campos destacados.</p>`
     );
   }
 };

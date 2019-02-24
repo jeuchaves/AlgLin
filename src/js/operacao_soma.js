@@ -332,6 +332,7 @@ class OperacaoSoma {
    */
   instalarControles() {
     let self = this; // para usar nos callbacks do jQuery
+    self.redimensionarMatrizes();
 
     $("#numLinhas").change(function() {
       self.redimensionarMatrizes();
