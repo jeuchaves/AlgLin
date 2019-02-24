@@ -2,7 +2,6 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: "development",
   entry: {
     index: "./src/js/index.js",
     soma: "./src/js/soma.js",
@@ -27,5 +26,13 @@ module.exports = {
       { from: "node_modules/bootstrap/dist/js/bootstrap.min.js.map", to: "js" },
       { from: "node_modules/popper.js/dist/popper.min.js", to: "js" }
     ])
-  ]
+  ],
+  mode: "production",
+
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      name: "shared"
+    }
+  }
 };
