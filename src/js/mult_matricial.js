@@ -1,3 +1,41 @@
+/**
+ * Na função instalarControles é necessário acrescentar os leitores de mais dois inputs
+ * visto que na multiplicação os tamanhos das matrizes não são equivalentes.
+ * Já falando sobre redimensionar matrizes, precisa-se adicionar um novo parâmetro
+ * para validação do tamanho, onde a coluna da matrizA deve ser igual a linha da matrizB
+ * 
+ * Clicando na imagem de '=' o sistema deve retornar uma operação de multiplicação.
+ * Simples de se resolver.
+ * 
+ * A maneira de marcação do passo-a-passo também muda. Visto que deve ser selecionado a coluna da
+ * matrizA e a linha da matrizB por inteiro, mateiral essa também muito simples de se solucionar.
+ * 
+ * Creio que após essas alterações o programa já esteja funcionando.
+ */
+
+let $ = require("jquery");
+let OperacaoSoma = require("./operacao_soma");
+
+class OperacaoMultiplicacao extends OperacaoSoma {
+    instalarControles() {
+        super.instalarControles();
+        
+        $("#numLinhasX").change(function() {
+            self.redimensionarMatrizes();
+        });
+      
+        $("#numColunasX").change(function() {
+            self.redimensionarMatrizes();
+        });
+    }
+}
+
+$(function() {
+    let op = new OperacaoMultiplicacao();
+    op.instalarControles();
+});
+
+/** 
 var LA = 3, LB = 3; 
 var CA = 3, CB = 3;
 
@@ -357,3 +395,5 @@ $(function () {
     });
 
 });
+
+*/
