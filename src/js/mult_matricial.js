@@ -1,6 +1,4 @@
 /**
- * Na função instalarControles é necessário acrescentar os leitores de mais dois inputs
- * visto que na multiplicação os tamanhos das matrizes não são equivalentes.
  * Já falando sobre redimensionar matrizes, precisa-se adicionar um novo parâmetro
  * para validação do tamanho, onde a coluna da matrizA deve ser igual a linha da matrizB
  *
@@ -14,10 +12,43 @@
  */
 
 let $ = require("jquery");
+let utils = require("./utils");
 let OperacaoSoma = require("./operacao_soma");
 
 class OperacaoMultiplicacao extends OperacaoSoma {
+  redimensionarMatrizes() {
+    let [numLinhas, numColunas] = utils.getEntradaTamanho();
+    let [numLinhasX, numColunasX] = utils.getEntradaTamanho("X");
+
+    // validação do tamanho
+    if (numColunas != numLinhasX) {
+      $("#insercao-nas-matrizes").addClass("invisible");
+      $("#erro-coluna-diferente-linha").html(
+        `<p class="mb-0 lead text-center conteudo alert alert-danger">O <strong>número de colunas</strong> da <strong>Matriz A</strong> está diferente do <strong>número de linhas</strong> da <strong>Matriz B</strong></p>`
+      );
+      return;
+    } else {
+      $("#erro-coluna-diferente-linha").html("");
+      $("#insercao-nas-matrizes").removeClass("invisible");
+    }
+
+    // limita o tamanho
+    this.numLinhas = utils.limitar(numLinhas, 1, 4);
+    this.numColunas = utils.limitar(numColunas, 1, 4);
+    this.numLinhasX = utils.limitar(numLinhasX, 1, 4);
+    this.numColunasX = utils.limitar(numColunasX, 1, 4);
+
+    $("#MatrizA").html(
+      utils.gerarEntradaMatricial("a", this.numLinhas, this.numColunas)
+    );
+
+    $("#MatrizB").html(
+      utils.gerarEntradaMatricial("b", this.numLinhasX, this.numColunasX)
+    );
+  }
+
   instalarControles() {
+    let self = this; // para usar nos callbacks do jQuery
     super.instalarControles();
 
     $("#numLinhasX").change(function() {
