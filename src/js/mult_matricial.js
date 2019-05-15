@@ -21,7 +21,7 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     let [numLinhasX, numColunasX] = utils.getEntradaTamanho("X");
 
     // validação do tamanho
-    if (numColunas != numLinhasX) {
+    if (numColunas != numLinhasX && !isNaN(numLinhasX)) {
       $("#insercao-nas-matrizes").addClass("invisible");
       $("#erro-coluna-diferente-linha").html(
         `<p class="mb-0 lead text-center conteudo alert alert-danger">O <strong>número de colunas</strong> da <strong>Matriz A</strong> está diferente do <strong>número de linhas</strong> da <strong>Matriz B</strong></p>`
@@ -58,6 +58,28 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     $("#numColunasX").change(function() {
       self.redimensionarMatrizes();
     });
+  }
+
+  realizarOperacao() {
+    let { numLinhas, numColunas, numLinhasX, numColunasX } = this;
+
+    if (
+      !utils.matrizEstaPreenchida("a", numLinhas, numColunas) |
+      !utils.matrizEstaPreenchida("b", numLinhasX, numColunasX)
+    ) {
+      utils.mostraErroEntradaIncompleta();
+      return;
+    } else {
+      $("#erro-input-vazio").html("");
+    }
+
+    $("#passo-a-passo").html(utils.criarPassoAPasso());
+
+    this.mA = utils.recuperarMatriz("a", numLinhas, numColunas);
+    this.mB = utils.recuperarMatriz("b", numLinhasX, numColunasX);
+    this.mC = this.calcular();
+
+    this.atualizarResultado();
   }
 }
 
