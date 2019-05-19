@@ -86,15 +86,20 @@ class OperacaoMultiplicacao extends OperacaoSoma {
   }
 
   calcular(op) {
-    let { numLinhas, numColunasX } = this;
+    let { numLinhas, numColunasX, numColunas } = this;
     let resp = Array(numLinhas);
 
     for (let l = 1; l <= numLinhas; ++l) {
       resp[l] = Array(numColunasX);
-
       for (let c = 1; c <= numColunasX; ++c) {
-        for (let k = 1; k <= numColunasX; ++k) {
-            resp[l][c] += this.mA[l][k] * this.mb[k][c];
+        resp[l][c] = 0;
+      }
+    }
+
+    for (let l = 1; l <= numLinhas; ++l) {
+      for (let c = 1; c <= numColunasX; ++c) {
+        for (let k = 1; k <= numColunas; ++k) {
+          resp[l][c] += this.mA[l][k] * this.mB[k][c];
         }
         resp[l][c] = utils.arredondar(resp[l][c]);
       }      
@@ -131,7 +136,7 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     
     let html = `<p class="lead">`;
     html += `Multiplique os elementos da linha <strong>${linhaAtiva}</strong> `;
-    html += `da <strong>Matriz A (a esquerda) `;
+    html += `da <strong>Matriz A (a esquerda)</strong> `;
     html += `pelos elementos correspondentes da coluna `;
     html += `<strong>${colunaAtiva}</strong> da <strong>Matriz B (a direita)</strong> `;
     html += `para obter o elemento <strong>c<sub>${linhaAtiva}${colunaAtiva}</sub></strong>.<br>`;
@@ -150,19 +155,25 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     let numLinhas = this.numLinhas;
     let numColunas = this.numColunas;
 
-    if (prefixo == "b") {
-      numLinhas = this.numLinhasX;
-      numColunas = this.numColunasX;
-    }
-    else if (prefixo == "c") {
-      numColunas = this.numColunasX;
+    switch (prefixo) {
+      case "b": 
+        numLinhas = this.numLinhasX;
+        numColunas = this.numColunasX
+        break;
+      case "c": 
+        numColunas = this.numColunasX;
+        break;
     }
 
     for (let l = 1; l <= numLinhas; ++l) {
       html += "<tr>";
 
       for (let c = 1; c <= numColunas; ++c) {
-        if (l == this.linhaAtiva && c == this.colunaAtiva) {
+        if (
+          (l == this.linhaAtiva && prefixo == "a") ||
+          (c == this.colunaAtiva && prefixo == "b") ||
+          (l == this.linhaAtiva && c == this.colunaAtiva)
+        ) {
           if (mostrarCalculo) {
             html += `<td class="alert-dark">`;
             html += this.gerarCalculo(l, c);
@@ -181,6 +192,52 @@ class OperacaoMultiplicacao extends OperacaoSoma {
 
     html += "</table>";
     return html;
+  }
+
+  voltar() {
+    if (this.colunaAtiva == 1) {
+      if (this.linhaAtiva > 1) {
+        --this.linhaAtiva;
+        this.colunaAtiva = this.numColunasX;
+      }
+    } else {
+      --this.colunaAtiva;
+    }
+
+    this.atualizarResultado();
+  }
+
+  avancar() {
+    if (this.colunaAtiva == this.numColunasX) {
+      if (this.linhaAtiva < this.numLinhas) {
+        ++this.linhaAtiva;
+        this.colunaAtiva = 1;
+      }
+    } else {
+      ++this.colunaAtiva;
+    }
+
+    this.atualizarResultado();
+  }
+
+  atualizarEstagio() {
+    let { numLinhas, numColunasX, linhaAtiva, colunaAtiva } = this;
+
+    if (linhaAtiva == 1 && colunaAtiva == 1) {
+      this.estagio = 1;
+      return;
+    }
+
+    if (linhaAtiva == numLinhas && colunaAtiva == numColunasX) {
+      this.estagio = 3;
+      return;
+    }
+
+    if (linhaAtiva == 0 && colunaAtiva == 0) {
+      this.estagio = 4;
+    } else {
+      this.estagio = 2;
+    }
   }
 
 }
