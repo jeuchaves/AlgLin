@@ -1,3 +1,19 @@
+let $ = require("jquery");
+let utils = require("./utils");
+let OperacaoSoma = require("./operacao_soma");
+
+class OperacaoTranposta extends OperacaoSoma {
+    redimensionarMatrizes() {
+        alert("oi");
+    }
+}
+
+$(function() {
+  let op = new OperacaoTranposta();
+  op.instalarControles();
+});
+
+/*
 var L = 3; 
 var C = 3;
 
@@ -279,3 +295,4 @@ $(function () {
 
 });
 
+*/

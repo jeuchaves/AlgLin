@@ -38,28 +38,21 @@
       </div>
 
   <main class="p-4 container">
-    <div class="row">
-      <div class="col-md-6 align-self-center">
-        <p class="lead">
-          Nessa operação, se usa apenas uma matriz.<br>
-          Não é permitido matrizes superiores a <strong>4x4</strong>.
-        </p>
-      </div>
-      <div class="col-md-6 justify-content-center">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Tamanho da Matriz</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
-
-            <form class="conteudo">
-              <div class="form-group">
-                <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
-              </div>
-              <div class="form-group">
-                <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
-              </div>
-            </form>
-          </div>
+    <div class="card col-md-6 offset-md-3">
+      <div class="card-body">
+        <h5 class="card-title">Tamanho das Matrizes</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
+        <div class="form-group">
+          <input 
+            id="numLinhas" type="number" placeholder="Quantidade de Linhas" 
+            name="linha" min="1" max="4" class="form-control"
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            id="numColunas" type="number" placeholder="Quantidade de Colunas" 
+            name="coluna" min="1" max="4" class="form-control"
+          >
         </div>
       </div>
     </div>
