@@ -1,21 +1,9 @@
-/**
- * Já falando sobre redimensionar matrizes, precisa-se adicionar um novo parâmetro
- * para validação do tamanho, onde a coluna da matrizA deve ser igual a linha da matrizB
- *
- * Clicando na imagem de '=' o sistema deve retornar uma operação de multiplicação.
- * Simples de se resolver.
- *
- * A maneira de marcação do passo-a-passo também muda. Visto que deve ser selecionado a coluna da
- * matrizA e a linha da matrizB por inteiro, mateiral essa também muito simples de se solucionar.
- *
- * Creio que após essas alterações o programa já esteja funcionando.
- */
-
 let $ = require("jquery");
 let utils = require("./utils");
 let OperacaoSoma = require("./operacao_soma");
 
 class OperacaoMultiplicacao extends OperacaoSoma {
+  
   redimensionarMatrizes() {
     let [numLinhas, numColunas] = utils.getEntradaTamanho();
     let [numLinhasX, numColunasX] = utils.getEntradaTamanho("X");
@@ -89,6 +77,10 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     let { numLinhas, numColunasX, numColunas } = this;
     let resp = Array(numLinhas);
 
+    /**
+     * Inicialização da matriz resultante com o número zero,
+     * para assim poder somar as multiplicações de cada índice.
+     */
     for (let l = 1; l <= numLinhas; ++l) {
       resp[l] = Array(numColunasX);
       for (let c = 1; c <= numColunasX; ++c) {
@@ -96,6 +88,7 @@ class OperacaoMultiplicacao extends OperacaoSoma {
       }
     }
 
+    // Fórmula padrão de multiplicação de matrizes
     for (let l = 1; l <= numLinhas; ++l) {
       for (let c = 1; c <= numColunasX; ++c) {
         for (let k = 1; k <= numColunas; ++k) {

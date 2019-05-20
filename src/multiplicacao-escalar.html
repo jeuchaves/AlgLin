@@ -32,41 +32,33 @@
           <div class="container">
             <h1 class="capa-heading m-4">Multiplicação Escalar</h1>
             <p class="lead p-3" id="texto">
-              É possível multiplicar cada célula de uma matriz por um valor qualquer,
-              veja como fazer isso.
+              Art.1 Texto explicativo da operação.
             </p>
           </div>
         </div>
       </div>
 
-  <main class="p-4 container">
-    <div class="row espaco">
-      <div class="col-md-6 align-self-center">
-        <p class="lead">
-          Nessa operação, informa-se apenas o tamanho de uma matriz <strong>e</strong> um número para ser multiplicado por ela.<br>
-          Não é permitido matrizes superiores a <strong>4x4</strong>.
-        </p>
-      </div>
-      <div class="col-md-6 justify-content-center">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Tamanho das Matrizes</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
-
-            <form class="conteudo justify-content-center">
-                <div class="form-group">
-                    <input id="numLinhas" type="number" placeholder="Quantidade de Linhas" name="linha" min="1" max="4" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input id="numColunas" type="number" placeholder="Quantidade de Colunas" name="coluna" min="1" max="4" class="form-control">
-                </div>
-            </form>
-          </div>
+  <main class="container p-4">
+    <div class="card col-md-6 offset-md-3">
+      <div class="card-body">
+        <h5 class="card-title">Tamanho das Matrizes</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
+        <div class="form-group">
+          <input 
+            id="numLinhas" type="number" placeholder="Quantidade de Linhas" 
+            name="linha" min="1" max="4" class="form-control"
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            id="numColunas" type="number" placeholder="Quantidade de Colunas" 
+            name="coluna" min="1" max="4" class="form-control"
+          >
         </div>
       </div>
     </div>
 
-    <div class="col-xl-12 espaco">
+    <div class="col-xl-12 p-4">
         <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
         <hr class="conteudo">
         <div class="row"> 
