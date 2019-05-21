@@ -1,329 +1,180 @@
-var T = 3; 
+let $ = require("jquery");
+let utils = require("./utils");
+let OperacaoSoma = require("./operacao_soma");
 
-var ESTAGIO = 1;
+class OperacaoDeterminante extends OperacaoSoma {
 
-var LINHADESTACADA = 1;
-var COLUNADESTACADA = 1;
+  redimensionarMatrizes() {
+    let [numLinhas] = utils.getEntradaUnica();
+    
+    this.numLinhas = utils.limitar(numLinhas, 1, 3);
 
-var MA, MB, MC;
+    this.numColunas = this.numLinhas + 2;
 
-function eValidoTamanho (valor, min, max) {
-    if (valor >= min && valor <= max) return true;
-    return false;
-}
+    $("#MatrizA").html(
+      utils.gerarEntradaMatricial("a", this.numLinhas, this.numLinhas)
+    );
+  }
 
-function gerarInputMatricial(linhas, colunas, prefixo) {
-    var html = "";
+  realizarOperacao() {
+    let { numLinhas } = this;
 
-    for (var l = 1; l <= linhas; ++l) {
-        html += "<tr>";
-        for (var c = 1; c <= colunas; ++c) {
-            html += `<td><input class="form-control input-matriz" id="${prefixo}${l}${c}" placeholder="${prefixo}${l}${c}" type="number"></td>`;
-        }
-        html += "</tr>";
-    }
-
-    return html;
-}
-
-function redimensionarMatrizes() {
-    T = $('#tamanho').val();
-
-    if(!eValidoTamanho(T, 1, 4)) T = 3;
-
-    var matA = $('#MatrizA');
-    matA.html(gerarInputMatricial(T, T, 'a'));
-}
-
-function validarDados() {
-    var temErro = false;
-    for (var l = 1; l <= L; ++l) {
-        for (var c = 1; c <= C; ++c) {
-            if($(`#a${l}${c}`).val() == "") {
-                $(`#a${l}${c}`).addClass("alert-danger");
-                temErro = true;
-            } else {
-                $(`#a${l}${c}`).removeClass("alert-danger");
-            }
-            if($(`#b${l}${c}`).val() == "") {
-                $(`#b${l}${c}`).addClass("alert-danger");
-                temErro = true;
-            } else {
-                $(`#b${l}${c}`).removeClass("alert-danger");
-            }
-        }
-    }
-    if(temErro) return false;
-    return true;
-}
-
-function VerificarErro() {
-    if(!validarDados()) {
-        $('#erro').text("Por favor, insira os dados em <strong>todos</strong> os campos das matrizes");
-        var erro = $("#erro");
-        erro.html(`<p class="mb-0 lead text-center conteudo alert alert-danger" id="erro">Por favor, insira os dados em <strong>todos</strong> os campos das matrizes</p>`);
-        var resultado = $("#resultado");
-        resultado.html(`<p class="lead">Após <strong>inserir os dados</strong> nas matrizes e <strong>clicar</strong> sobre o sinal de igual. Seu resultado aparecerá aqui.</p>`);
-        return;
+    if (!utils.matrizEstaPreenchida("a", numLinhas, numLinhas)) {
+      utils.mostraErroEntradaIncompleta();
+      return;
     } else {
-        $("#erro").text("");
+      $("#erro-input-vazio").html("");
     }
-}
 
-function criarMatriz(linha, coluna, prefixo) {
-    var matriz = Array(linha);
-    for (var l = 1; l <= linha; ++l) {
-        matriz[l] = Array(coluna);
-        for (var c = 1; c <= coluna; ++c) {
-            matriz[l][c] = $(`#${prefixo}${l}${c}`).val();
-        }
+    $("#passo-a-passo").html(utils.criarPassoAPasso());
+
+    this.mA = utils.recuperarMatriz("a", numLinhas, numLinhas);
+
+    if (numLinhas == 3) {
+      this.mC = this.calcular();
+      this.linhaAtiva = 0;
     }
-    return matriz;
-} 
 
-function operarMatriz() {
-    var matriz = Array(L);
-    for (var l = 1; l <= L; ++l) {
-        matriz[l] = Array(C);
-        for (var c = 1; c <= C; ++c) {
-            matriz[l][c] = parseFloat(MA[l][c]) + parseFloat(MB[l][c]);
-            matriz[l][c] = arredondar(matriz[l][c], 2);
-        }
+    this.atualizarResultado();
+  }
+
+  calcular(op) {
+    let { numLinhas, numColunas } = this;
+    let resp = Array(numLinhas);
+
+    for (let l = 1; l <= numLinhas; ++l) {
+      resp[l] = Array(numColunas);
+
+      for (let c = 1; c <= numColunas; ++c) {
+        if (c > 3) resp[l][c] = this.mA[l][c-3];
+        else resp[l][c] = this.mA[l][c];
+      }
     }
-    return matriz;
-}
 
-function enunciadoHTML() {
-    var html = "";
+    return resp;
+  }
 
-    html += `<hr class="linha">`;
-    html += `<p class="lead">`;
-    html += `Some o elemento <strong>a<sub>${LINHADESTACADA}${COLUNADESTACADA}</sub></strong> com o elemento <strong>b<sub>${LINHADESTACADA}${COLUNADESTACADA}</sub></strong>.<br>`;
-    html += `<strong>${gerarCalculo(LINHADESTACADA,COLUNADESTACADA)}</strong>`;
-    html += `</p>`
+  /**
+   * Verifica qual é o estágio atual do cálculo.
+   *
+   * Estágio 1: Duplicar as primeiras colunas da matriz.
+   * Estágio 2: Multiplicar as diagonais principais.
+   * Estágio 3: Multiplicar as diagonais secundárias.
+   * Estágio 4: Subtrair as secundárias pelas primárias.
+   * Estágio 5: Finalização
+   */
+  atualizarEstagio() {
+    let { linhaAtiva } = this;
 
-    return html;
-}
+    if (linhaAtiva == 0) {
+      this.estagio = 1;
+      return;
+    }
+    
+    if (linhaAtiva == 1) {
+      this.estagio = 2;
+      return;
+    }
 
-function matrizHTML(titulo, matriz, mostrarCalculo) {
-    var html = "";
-    html += `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
+    if (linhaAtiva == 2) {
+      this.estagio = 3;
+      return;
+    }
+
+    if (linhaAtiva == 3) {
+      this.estagio = 4;
+    } 
+
+    if (linhaAtiva == 4) {
+      this.estagio = 5
+    }
+  }
+
+  gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
+    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
-    for (var l = 1; l <= L; ++l) {
-        html += "<tr>";
-        for (var c = 1; c <= C; ++c) {
-            if(l == LINHADESTACADA && c == COLUNADESTACADA) {
-                if(mostrarCalculo) {
-                    html += `<td class="alert-dark">`;
-                    html += gerarCalculo(l,c);
-                    html += `</td>`;
-                } else html += `<td class="alert-dark">(a<sub>${LINHADESTACADA}${COLUNADESTACADA}</sub>) <strong>${matriz[l][c]}</strong></td>`;
+
+    switch (this.estagio) {
+      case 1:
+        for (let l = 1; l <= this.numLinhas; ++l) {
+          html += "<tr>";
+
+          for (let c = 1; c <= this.numColunas; ++c) {
+            if (c > this.numLinhas) {
+              html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
+              html += `<strong>${matriz[l][c]}</strong></td>`;
+            } else {
+              html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
             }
-            else html += `<td>${matriz[l][c]}</td>`;
+          }
+          html += "</tr>";
         }
-        html += "</tr>";
+        break;
+      case 2:
+        for (let l = 1; l <= this.numLinhas; ++l) {
+          html += "<tr>";
+
+          for (let c = 1; c <= this.numColunas; ++c) {
+            if (c > this.numLinhas) {
+              html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
+              html += `<strong>${matriz[l][c]}</strong></td>`;
+            } else {
+              html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
+            }
+          }
+          html += "</tr>";
+        }
+        break;
     }
+
     html += "</table>";
-    html += "</div>";
-
     return html;
-}
+  }
 
-function imprimirResultado() {
-    var html = "";
+  imprimirResultado() {
+    let html = "";
 
-    if(ESTAGIO == 0) html += "";
-    else {
-        html += enunciadoHTML();
+    switch (this.estagio) {
+      case 1:
+        html += `<div class="col-md-8 offset-md-2>`;
+        html += this.gerarMatriz("Matriz A", this.mC, false, "a");
+        html += `</div>`;
+        break;
+     case 2:
+        html += `<div class="row">`;
+        html += `<div class="col-md-8">`;
+        html += this.gerarMatriz("Matriz A", this.mC, false, "a");
+        html += `</div>`;
+        html += `</div>`;
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
     }
 
-    html += `<div class="col-xl-12 row">`;
+
+    
+    html += `<div class="col-md-3">`;
+    html += this.gerarMatriz("Matriz A", this.mA, false, "a");
+    html += `</div>`;
 
     html += `<div class="col-md-3">`;
-    html += matrizHTML("Matriz A", MA);
-
-    html += `<div class="col-md-3">`;
-    html += matrizHTML("Matriz B", MB);
+    html += this.gerarMatriz("Matriz B", this.mB, false, "b");
+    html += `</div>`;
 
     html += `<div class="col-md-6">`;
-    html += matrizHTML("Matriz C", MC, true);
-    
-    return html;
-}
+    html += this.gerarMatriz("Matriz Resultante", this.mC, true, "c");
+    html += `</div>`;
 
-function realizarOperacao() {
-
-    VerificarErro();
-
-    MA = criarMatriz(L, C, 'a');
-    MB = criarMatriz(L, C, 'b');
-
-    MC = operarMatriz(MA, MB);
-
-    var result = $('#resultado');
-    result.html(imprimirResultado());
-
-    var botao = $('#bts-resultado');
-    botao.html(gerarBotoes());
-}
-
-
-function arredondar(numero, casasDecimais) {
-    casasDecimais = typeof casasDecimais !== 'undefined' ?  casasDecimais : 2;
-    return +(Math.floor(numero + ('e+' + casasDecimais)) + ('e-' + casasDecimais));
-}
-
-function gerarCalculo(l,c) {
-    var html = "";
-
-    html += `${MA[l][c]} + `;
-    
-    if (eNegativo(MB[l][c])) html += `(${MB[l][c]})`;
-    else html += `${MB[l][c]}`;
-
-    html += ` = ${MC[l][c]}`;
+    html += ``;
 
     return html;
+  }
 }
 
-function eNegativo(valor) {
-    if(valor >= 0) return false;
-    return true;
-}
-
-function imagemHTML(nomeImagem, semAnimacao) {
-    var html = "";
-    if (semAnimacao) html += `<div class="align-self-center text-center">`;
-    else html += `<div class="align-self-center text-center animation">`;
-    html += `<img id="${nomeImagem}" class="icone-p" src="img/botao/${nomeImagem}.png">`;
-    html += "</div>";
-
-    return html;
-}
-
-function gerarBotoes() {
-    var html = "";
-    
-    if (ESTAGIO != 0) $("#bts-resultado").addClass("row");
-
-    switch(ESTAGIO) {
-        case 0:
-            $("#bts-resultado").removeClass("row");
-            html += imagemHTML("reiniciar");
-            break;
-        case 1:
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("voltar", true);
-            html += `</div>`;
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("avancar");
-            break;
-        case 2:
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("voltar");
-            html += `</div>`;
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("avancar");
-            break;
-        case 3:
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("voltar");
-            html += `</div>`;
-            html += `<div class="col-md-6">`;
-            html += imagemHTML("finalizar");
-            break;
-    }
-    return html;
-}
-
-function atualizarEstagio() {
-    if (LINHADESTACADA == 0) ESTAGIO = 0;
-    else if (LINHADESTACADA == L && COLUNADESTACADA == C) ESTAGIO = 3;
-    else if (LINHADESTACADA == 1 && COLUNADESTACADA == 1) ESTAGIO = 1;
-    else ESTAGIO = 2;
-}
-function voltar() {
-    
-    if(COLUNADESTACADA <= 1) {
-        COLUNADESTACADA = C;
-        --LINHADESTACADA; 
-    } else {
-        --COLUNADESTACADA;
-    }
-
-    atualizarEstagio();
-
-    var result = $('#resultado');
-    result.html(imprimirResultado());
-    var botao = $('#bts-resultado');
-    botao.html(gerarBotoes());
-}
-
-function avancar() {
-    if(COLUNADESTACADA >= C) {
-        ++LINHADESTACADA;
-        COLUNADESTACADA = 1;
-    } else {
-        ++COLUNADESTACADA;
-    }
-
-    atualizarEstagio();
-
-    var result = $('#resultado');
-    result.html(imprimirResultado());
-    var botao = $('#bts-resultado');
-    botao.html(gerarBotoes());
-}
-
-function finalizar() {
-    LINHADESTACADA = 0;
-    COLUNADESTACADA = 0;
-
-    atualizarEstagio();
-
-    var result = $('#resultado');
-    result.html(imprimirResultado());
-    var botao = $('#bts-resultado');
-    botao.html(gerarBotoes());
-}
-
-function reiniciar() {
-    LINHADESTACADA = 1;
-    COLUNADESTACADA = 1;
-
-    atualizarEstagio();
-
-    var result = $('#resultado');
-    result.html(imprimirResultado());
-    var botao = $('#bts-resultado');
-    botao.html(gerarBotoes());
-}
-
-$(function () {     
-        
-    $('#tamanho').change(function () {
-        redimensionarMatrizes();
-    });
-
-    $('#calcular').click(function () {
-        realizarOperacao();
-    });
-
-    $(document).on('click', '#voltar', function() {
-        voltar();
-    });
-
-    $(document).on('click', '#avancar', function() {
-        avancar();
-    });
-
-    $(document).on('click', '#finalizar', function() {
-        finalizar();
-    });
-
-    $(document).on('click', '#reiniciar', function() {
-        reiniciar();
-    });
-
+$(function() {
+  let op = new OperacaoDeterminante();
+  op.instalarControles();
 });
-

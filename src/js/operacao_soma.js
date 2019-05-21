@@ -2,9 +2,8 @@ let $ = require("jquery");
 let utils = require("./utils");
 
 class OperacaoSoma {
+  
   constructor() {
-    this.numLinhas = 2;
-    this.numColunas = 2;
     this.estagio = 1;
     this.linhaAtiva = 1;
     this.colunaAtiva = 1;
