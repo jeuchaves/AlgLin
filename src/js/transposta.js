@@ -7,13 +7,11 @@ class OperacaoTranposta extends OperacaoSoma {
   realizarOperacao() {
     let { numLinhas, numColunas } = this;
 
-    if (
-      !utils.matrizEstaPreenchida("a", numLinhas, numColunas)
-    ){
-        utils.mostraErroEntradaIncompleta();
-        return;
+    if (!utils.matrizEstaPreenchida("a", numLinhas, numColunas)){
+			utils.mostraErroEntradaIncompleta();
+			return;
     } else {
-        $("#erro-input-vazio").html("");
+			$("#erro-input-vazio").html("");
     }
 
     $("#passo-a-passo").html(utils.criarPassoAPasso());
@@ -28,6 +26,10 @@ class OperacaoTranposta extends OperacaoSoma {
     let { numLinhas, numColunas } = this;
     let resp = Array(numColunas);
 
+    /**
+     * No resultado, o número de linhas é igual ao número de colunas da matriz A,
+     * assim como o número de colunas é equivalente ao número de linhas da matriz a ser resultada.
+     */
     for (let l = 1; l <= numColunas; ++l) {
       resp[l] = Array(numLinhas);
 
@@ -42,8 +44,10 @@ class OperacaoTranposta extends OperacaoSoma {
   gerarEnunciado(verbo) {
 
     let html = `<p class="lead">`;
-    let idx = `${this.linhaAtiva}${this.colunaAtiva}`;
-    html += `Vai aparecer um texto explicando aqui`;
+		let l = this.linhaAtiva;
+		let c = this.colunaAtiva;
+    html += `O elemento <strong>b<sub>${c}${l}</sub></strong> `;
+    html += `recebe o valor do elemento <strong>a<sub>${l}${c}</sub></strong>`;
     html += `</p>`;
 
     return html;
@@ -65,7 +69,7 @@ class OperacaoTranposta extends OperacaoSoma {
     html += `</div>`;
 
     html += `<div class="col-md-6">`;
-    html += this.gerarMatriz("Matriz Resultante", this.mC, false, "c");
+    html += this.gerarMatriz("Matriz Resultante", this.mC, false, "b");
     html += `</div>`;
 
     html += ``;
@@ -84,7 +88,7 @@ class OperacaoTranposta extends OperacaoSoma {
      * Caso for a matriz de prefixo c,
      * o número de linhas será o número de colunas e o de colunas o de linhas
      */
-    if (prefixo == "c") {
+    if (prefixo == "b") {
       numLinhas = this.numColunas;
       numColunas = this.numLinhas;
     }
@@ -94,54 +98,29 @@ class OperacaoTranposta extends OperacaoSoma {
 
       for (let c = 1; c <= numColunas; ++c) {
         if (
-          (l == this.linhaAtiva && c == this.colunaAtiva && prefixo == "c") ||
-          (l == this.colunaAtiva && c == this.linhaAtiva && prefixo == "a") 
+          (l == this.linhaAtiva && c == this.colunaAtiva && prefixo == "a") ||
+          (l == this.colunaAtiva && c == this.linhaAtiva && prefixo == "b") 
         ){
-          if (mostrarCalculo) {
-            html += `<td class="alert-dark">`;
-            html += this.gerarCalculo(l, c);
-            html += `</td>`;
-          } else {
-            html += `<td class="alert-dark">(${prefixo}<sub>${l}${c}</sub>) <strong>${
-              matriz[l][c]
-            }</strong></td>`;
-          }
+					html += `<td class="alert-dark">(${prefixo}<sub>${l}${c}</sub>) `;
+					html += `<strong>${matriz[l][c]}</strong></td>`;
         } else {
           html += `<td>${matriz[l][c]}</td>`;
         }
-      }
-      html += "</tr>";
+			}
+			
+			html += "</tr>";
+			
     }
 
     html += "</table>";
     return html;
   }
 
-  atualizarEstagio() {
-    let { numLinhas, numColunas, linhaAtiva, colunaAtiva } = this;
-
-    if (linhaAtiva == 1 && colunaAtiva == 1) {
-      this.estagio = 1;
-      return;
-    }
-
-    if (linhaAtiva == numColunas && colunaAtiva == numLinhas) {
-      this.estagio = 3;
-      return;
-    }
-
-    if (linhaAtiva == 0 && colunaAtiva == 0) {
-      this.estagio = 4;
-    } else {
-      this.estagio = 2;
-    }
-  }
-
   voltar() {
     if (this.colunaAtiva == 1) {
       if (this.linhaAtiva > 1) {
         --this.linhaAtiva;
-        this.colunaAtiva = this.numLinhas;
+        this.colunaAtiva = this.numColunas;
       }
     } else {
       --this.colunaAtiva;
@@ -150,12 +129,10 @@ class OperacaoTranposta extends OperacaoSoma {
     this.atualizarResultado();
   }
 
-  avancar() {
-    if (this.colunaAtiva == this.numLinhas) {
-      if (this.linhaAtiva < this.numColunas) {
-        ++this.linhaAtiva;
-        this.colunaAtiva = 1;
-      }
+  avancar() { 
+    if (this.colunaAtiva == this.numColunas) {
+			++this.linhaAtiva;
+			this.colunaAtiva = 1;
     } else {
       ++this.colunaAtiva;
     }
