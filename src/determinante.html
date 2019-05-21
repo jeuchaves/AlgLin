@@ -19,9 +19,7 @@
 
   <body>
     <div class="caixa">
-      <div
-        class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center"
-      >
+      <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
         <header class="masthead mb-auto">
           <div class="inner">
             <h3 class="masthead-brand">AlgLin</h3>
@@ -42,14 +40,12 @@
       </div>
     </div>
 
-    <main class="conteudo container p-4">
-      <div class="row espaco">
+    <main class="container p-4">
+      <div class="row">
         <div class="col-md-6 align-self-center">
           <p class="lead">
-            Uma matriz determinante trabalha com apenas uma matriz. Além de ser
-            <strong>única</strong>, deve ser <strong>quadrática</strong>, como
-            explicado no texto acima. Ainda por cima, os valores limites para
-            essa operação é <strong>3x3</strong>;
+            Art.2 Texto explicativo sobre o método utilizado 
+            e os parâmetros necessários.
           </p>
         </div>
         <div class="col-md-6 justify-content-center">
@@ -59,141 +55,56 @@
               <h6 class="card-subtitle mb-2 text-muted">
                 Informe o tamanho da matriz quadrática
               </h6>
-
-              <input
-                id="tamanho"
-                type="number"
-                placeholder="Tamanho da Matriz"
-                name="tamanho"
-                min="1"
-                max="3"
-                class="form-control"
-              />
+              <input id="numLinhas" type="number"
+                placeholder="Tamanho da Matriz" name="tamanho"
+                min="1" max="3" class="form-control"
+              >
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-xl-12 p-4">
-        <h1 class="display-4 text-center">Insira os dados na matriz</h1>
-        <hr class="conteudo" />
-        <div class="row">
+        <h1 class="text-center">Insira os Dados na Matriz</h1>
+        <hr>
+        <div class="row p-3">
           <div class="col-md-6">
             <h5 class="card-title text-center">Matriz A</h5>
-            <form>
-              <table align="center" id="MatrizA">
-                <tr>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a11"
-                      type="number"
-                      id="a11"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a12"
-                      type="number"
-                      id="a12"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a13"
-                      type="number"
-                      id="a13"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a21"
-                      type="number"
-                      id="a21"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a22"
-                      type="number"
-                      id="a22"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a23"
-                      type="number"
-                      id="a23"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a31"
-                      type="number"
-                      id="a31"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a32"
-                      type="number"
-                      id="a32"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      class="form-control input-matriz"
-                      placeholder="a33"
-                      type="number"
-                      id="a33"
-                    />
-                  </td>
-                </tr>
-              </table>
-            </form>
+            <table align="center" id="MatrizA">
+              <!-- Conjunto de inputs da Matriz A --> 
+            </table>
           </div>
 
           <div class="col-md-2 align-self-center text-center animation">
-            <img
-              id="calcular"
-              class="icone-g"
-              src="img/botao/igual.png"
-              width="180"
-              height="180"
-            />
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">Calcular</div>
+              <div class="card-body">
+                <img 
+                  class="rounded-circle" width="100" height="100" 
+                  id="calcular" src="img/botao/igual.png" 
+                >
+              </div>
+              <div class="card-footer text-muted">
+                Clique
+              </div>
+
+            </div>
           </div>
+
         </div>
-        <div id="erro"></div>
       </div>
 
-      <div class="text-center espaco">
-        <h1 class="display-3">Passo a Passo</h1>
-        <div id="resultado" class="col-xl-12">
-          <p class="lead">
-            Após <strong>inserir os dados</strong> nas matrizes,
-            <strong>clique</strong> sobre o sinal de igualdade. Seu resultado
-            aparecerá aqui.
-          </p>
-        </div>
-        <div id="bts-resultado" class="col-xl-12"></div>
-      </div>
+      <!-- Caso falte campos a ser preenchidos aparece esse erro -->
+      <div id="erro-input-vazio" class="m-4"></div> 
+
+      <!-- Mostra o passo a passo -->
+      <div class="text-center" id="passo-a-passo"></div> 
     </main>
 
     <footer class="py-5 conteudo">
       <hr class="linha" />
       <div class="container">
-        <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+        <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2019</p>
       </div>
     </footer>
   </body>

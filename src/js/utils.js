@@ -12,7 +12,7 @@ module.exports = {
       html += `<div class="align-self-center text-center animation">`;
     }
 
-    html += `<img id="${nomeImagem}" class="icone-p" src="img/botao/${nomeImagem}.png">`;
+    html += `<img id="${nomeImagem}" class="rounded-circle" width="65" height="65" src="img/botao/${nomeImagem}.png">`;
     html += "</div>";
 
     return html;
@@ -29,7 +29,7 @@ module.exports = {
    * Retorna o leiaute principal da página.
    */
   criarPassoAPasso: function() {
-    let html = `<h1 class="display-3">Passo a Passo</h1>`;
+    let html = `<h1>Passo a Passo</h1>`;
     html += `<hr class="linha">`;
     html += `<div id="resultado" class="col-xl-12"></div>`;
     html += `<div id="botoes-passo-a-passo" class="col-xl-12"></div>`;
@@ -131,11 +131,20 @@ module.exports = {
     if (sufixo == undefined) {
       sufixo = "";
     }
-
+    
     let numLinhas = parseInt($(`#numLinhas${sufixo}`).val());
     let numColunas = parseInt($(`#numColunas${sufixo}`).val());
 
     return [numLinhas, numColunas];
+  },
+
+  /**
+   * Retorna o tamanho da matriz quadratica.
+  */
+  getEntradaUnica : function() {
+    let numLinhas = parseInt($(`#numLinhas`).val());
+
+    return [numLinhas];
   },
 
   /**

@@ -16,32 +16,32 @@
 </head>
 
 <body>
-    <div class="caixa">
-        <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
-          <header class="masthead mb-auto">
-            <div class="inner">
-              <h3 class="masthead-brand">AlgLin</h3>
-              <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link" href="index.html">Inicio</a>
-                <a class="nav-link" href="operacoes.html">Operações</a>
-                <a class="nav-link" href="sobre.html">Sobre</a>
-              </nav>
-            </div>
-          </header>
-    
-          <div class="container">
-            <h1 class="capa-heading m-4">Multiplicação Escalar</h1>
-            <p class="lead p-3" id="texto">
-              Art.1 Texto explicativo da operação.
-            </p>
-          </div>
+  <div class="caixa">
+    <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">AlgLin</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="operacoes.html">Operações</a>
+            <a class="nav-link" href="sobre.html">Sobre</a>
+          </nav>
         </div>
+      </header>
+
+      <div class="container">
+        <h1 class="capa-heading m-4">Multiplicação Escalar</h1>
+        <p class="lead p-3" id="texto">
+          Art.1 Texto explicativo da operação.
+        </p>
       </div>
+    </div>
+  </div>
 
   <main class="container p-4">
     <div class="card col-md-6 offset-md-3">
       <div class="card-body">
-        <h5 class="card-title">Tamanho das Matrizes</h5>
+        <h5 class="card-title">Tamanho da Matriz</h5>
         <h6 class="card-subtitle mb-2 text-muted">Informe a quantidade de linhas e colunas</h6>
         <div class="form-group">
           <input 
@@ -59,23 +59,30 @@
     </div>
 
     <div class="col-xl-12 p-4">
-      <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
+      <h1 class="text-center">Insira os dados nas matrizes</h1>
       <hr>
-      <div class="row"> 
-        <div class="col-md-5  align-self-center">
-          <h5 class="card-title text-center">Número Escalar</h5>
-          <form>
-            <div class="form-group">
-              <input 
-                id="numEscalar" type="number" placeholder="Número Escalar" 
-                class="form-control input-escalar"
-              >
-            </div>
-          </form>
+      <div class="row p-3"> 
+        <div class="col-md-5">
+          <h5 class="text-center">Número Escalar</h5>
+          <input 
+            id="numEscalar" type="number" placeholder="Número Escalar" 
+            class="form-control input-escalar"
+          >
         </div>
 
         <div class="col-md-2 align-self-center text-center animation">
-          <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
+          <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Calcular</div>
+            <div class="card-body">
+              <img 
+                class="rounded-circle" width="100" height="100" 
+                id="calcular" src="img/botao/igual.png" 
+              >
+            </div>
+            <div class="card-footer text-muted">
+              Clique
+            </div>
+          </div>
         </div>
 
         <div class="col-md-5">
@@ -85,11 +92,14 @@
           </table>
         </div>
       </div>
-      
-      <div id="erro-input-vazio" class="p-4"></div>
     </div>
-   
+
+    <!-- Caso falte campos a ser preenchidos aparece esse erro -->
+    <div id="erro-input-vazio" class="p-4"></div>
+
+    <!-- Mostra o passo a passo -->
     <div class="text-center" id="passo-a-passo"></div>
+    
   </main>
 
   <footer class="py-5 conteudo">

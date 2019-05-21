@@ -19,9 +19,7 @@
 
   <body>
     <div class="caixa">
-      <div
-        class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center"
-      >
+      <div class="container d-flex w-100 h-100 p-4 mx-auto flex-column text-center">
         <header class="masthead mb-auto">
           <div class="inner">
             <h3 class="masthead-brand">AlgLin</h3>
@@ -93,32 +91,44 @@
       <div id="erro-coluna-diferente-linha" class="p-4"></div>
 
       <div class="col-xl-12" id="insercao-nas-matrizes">
-        <h1 class="display-4 text-center">Insira os dados nas matrizes</h1>
+        <h1 class="text-center">Insira os Dados nas Matrizes</h1>
         <hr>
-        <div class="row">
+        <div class="row p-3"> 
           <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz A</h5>
-            <table align="center" id="MatrizA">
+            <h5 class="text-center">Matriz A</h5>
+            <table align="center"  id="MatrizA">
               <!-- Conjunto de inputs da Matriz A -->  
             </table>
           </div>
-
+  
           <div class="col-md-2 align-self-center text-center animation">
-            <img id="calcular" class="icone-g" src="img/botao/igual.png" width="180" height="180">
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">Calcular</div>
+              <div class="card-body">
+                <img 
+                  class="rounded-circle" width="100" height="100" 
+                  id="calcular" src="img/botao/igual.png" 
+                >
+              </div>
+              <div class="card-footer text-muted">
+                Clique
+              </div>
+            </div>
           </div>
-
+          
           <div class="col-md-5">
-            <h5 class="card-title text-center">Matriz B</h5>
-            <table align="center" id="MatrizB">
+            <h5 class="text-center">Matriz B</h5>
+            <table id="MatrizB" align="center">
               <!-- Conjunto de inputs da Matriz B -->  
             </table>
           </div>
         </div>
-
-        <div id="erro-input-vazio" class="p-4"></div>
-      
       </div>
+
+      <!-- Caso falte campos a ser preenchidos aparece esse erro -->
+      <div id="erro-input-vazio" class="p-4"></div>
       
+      <!-- Mostra o passo a passo -->
       <div class="text-center" id="passo-a-passo"></div>
     
     </main>
@@ -126,7 +136,7 @@
     <footer class="py-5 p-4">
       <hr class="linha" />
       <div class="container">
-        <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2018</p>
+        <p class="m-0 text-center">Copyright &copy; TIC-AlgLin 2019</p>
       </div>
     </footer>
   </body>

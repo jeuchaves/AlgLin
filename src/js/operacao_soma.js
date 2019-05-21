@@ -78,6 +78,7 @@ class OperacaoSoma {
    * Retorna o HTML do enunciado do passo atual.
    */
   gerarEnunciado(verbo) {
+    
     if (verbo == undefined) {
       verbo = "Some";
     }
