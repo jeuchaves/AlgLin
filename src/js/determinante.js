@@ -2,7 +2,67 @@ let $ = require("jquery");
 let utils = require("./utils");
 let OperacaoSoma = require("./operacao_soma");
 
+/**
+ * Responsável por duplicar as duas primeiras colunas da matriz
+ * (somente no caso de matrizes 3x3)
+ */
+class Estagio1 {
+  
+  calcular(tam, mA) {
+    let resp = Array(tam);
+    for (let l = 1; l <= tam; ++l) {
+      resp[l] = Array(tam);
+
+      for (let c = 1; c <= tam+2; ++c) {
+        if (c > 3) resp[l][c] = mA[l][c-3];
+        else resp[l][c] = mA[l][c];
+      }
+    }
+
+    return resp;
+  }
+
+  imprimirResultado() {
+    
+    let html = "";
+
+    html += `<div class="col-md-8 offset-md-2>`;
+    html += this.gerarMatriz("Matriz A", this.mC, false, "a");
+    html += `</div>`;
+
+    return html;
+  }
+
+  gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
+    
+    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;    
+    html += `<table class="table table-bordered">`;
+
+    for (let l = 1; l <= this.numLinhas; ++l) {
+      html += "<tr>";
+
+      for (let c = 1; c <= this.numColunas; ++c) {
+        if (c > this.numLinhas) {
+          html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
+          html += `<strong>${matriz[l][c]}</strong></td>`;
+        } else {
+          html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
+        }
+      }
+      html += "</tr>";
+    }
+
+    html += "</table>";
+    return html;
+  }
+}
+
 class OperacaoDeterminante extends OperacaoSoma {
+  
+  constructor() {
+    super();
+    this.obj = new Estagio1();
+  }
 
   redimensionarMatrizes() {
     let [numLinhas] = utils.getEntradaUnica();
@@ -29,148 +89,21 @@ class OperacaoDeterminante extends OperacaoSoma {
     $("#passo-a-passo").html(utils.criarPassoAPasso());
 
     this.mA = utils.recuperarMatriz("a", numLinhas, numLinhas);
-
-    if (numLinhas == 3) {
-      this.mC = this.calcular();
-      this.linhaAtiva = 0;
-    }
+    if (numLinhas == 3) this.mA = this.obj.calcular();
 
     this.atualizarResultado();
   }
 
   calcular(op) {
-    let { numLinhas, numColunas } = this;
-    let resp = Array(numLinhas);
-
-    for (let l = 1; l <= numLinhas; ++l) {
-      resp[l] = Array(numColunas);
-
-      for (let c = 1; c <= numColunas; ++c) {
-        if (c > 3) resp[l][c] = this.mA[l][c-3];
-        else resp[l][c] = this.mA[l][c];
-      }
-    }
-
-    return resp;
-  }
-
-  /**
-   * Verifica qual é o estágio atual do cálculo.
-   *
-   * Estágio 1: Duplicar as primeiras colunas da matriz.
-   * Estágio 2: Multiplicar as diagonais principais.
-   * Estágio 3: Multiplicar as diagonais secundárias.
-   * Estágio 4: Subtrair as secundárias pelas primárias.
-   * Estágio 5: Finalização
-   */
-  atualizarEstagio() {
-    let { linhaAtiva } = this;
-
-    if (linhaAtiva == 0) {
-      this.estagio = 1;
-      return;
-    }
-    
-    if (linhaAtiva == 1) {
-      this.estagio = 2;
-      return;
-    }
-
-    if (linhaAtiva == 2) {
-      this.estagio = 3;
-      return;
-    }
-
-    if (linhaAtiva == 3) {
-      this.estagio = 4;
-    } 
-
-    if (linhaAtiva == 4) {
-      this.estagio = 5
-    }
+    return this.obj.calcular(this.numLinhas, this.mA);
   }
 
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
-    html += `<table class="table table-bordered">`;
-
-    switch (this.estagio) {
-      case 1:
-        for (let l = 1; l <= this.numLinhas; ++l) {
-          html += "<tr>";
-
-          for (let c = 1; c <= this.numColunas; ++c) {
-            if (c > this.numLinhas) {
-              html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
-              html += `<strong>${matriz[l][c]}</strong></td>`;
-            } else {
-              html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
-            }
-          }
-          html += "</tr>";
-        }
-        break;
-      case 2:
-        for (let l = 1; l <= this.numLinhas; ++l) {
-          html += "<tr>";
-
-          for (let c = 1; c <= this.numColunas; ++c) {
-            if (c > this.numLinhas) {
-              html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
-              html += `<strong>${matriz[l][c]}</strong></td>`;
-            } else {
-              html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
-            }
-          }
-          html += "</tr>";
-        }
-        break;
-    }
-
-    html += "</table>";
-    return html;
+    return this.obj.gerarMatriz();
   }
 
   imprimirResultado() {
-    let html = "";
-
-    switch (this.estagio) {
-      case 1:
-        html += `<div class="col-md-8 offset-md-2>`;
-        html += this.gerarMatriz("Matriz A", this.mC, false, "a");
-        html += `</div>`;
-        break;
-     case 2:
-        html += `<div class="row">`;
-        html += `<div class="col-md-8">`;
-        html += this.gerarMatriz("Matriz A", this.mC, false, "a");
-        html += `</div>`;
-        html += `</div>`;
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-    }
-
-
-    
-    html += `<div class="col-md-3">`;
-    html += this.gerarMatriz("Matriz A", this.mA, false, "a");
-    html += `</div>`;
-
-    html += `<div class="col-md-3">`;
-    html += this.gerarMatriz("Matriz B", this.mB, false, "b");
-    html += `</div>`;
-
-    html += `<div class="col-md-6">`;
-    html += this.gerarMatriz("Matriz Resultante", this.mC, true, "c");
-    html += `</div>`;
-
-    html += ``;
-
-    return html;
+    return this.obj.imprimirResultado();
   }
 }
 
