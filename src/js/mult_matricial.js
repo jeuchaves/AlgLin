@@ -15,7 +15,7 @@ class OperacaoMultiplicacao extends OperacaoSoma {
     if (numColunas != numLinhasX && !isNaN(numLinhasX)) {
       $("#insercao-nas-matrizes").addClass("invisible");
       $("#erro-coluna-diferente-linha").html(
-        `<p class="mb-0 lead text-center conteudo alert alert-danger">O <strong>número de colunas</strong> da <strong>Matriz A</strong> está diferente do <strong>número de linhas</strong> da <strong>Matriz B</strong></p>`
+        `<p class="mb-0 lead text-center m-3 alert alert-danger">O <strong>número de colunas</strong> da <strong>Matriz A</strong> está diferente do <strong>número de linhas</strong> da <strong>Matriz B</strong></p>`
       );
       return;
     } else {
@@ -142,7 +142,7 @@ class OperacaoMultiplicacao extends OperacaoSoma {
   }
 
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
+    let html = `<h5 class="text-center m-3">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
 
     let numLinhas = this.numLinhas;

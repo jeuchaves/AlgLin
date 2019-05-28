@@ -78,7 +78,7 @@ class OperacaoTranposta extends OperacaoSoma {
   }
 
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
+    let html = `<h5 class="text-center m-3">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
 
     let numLinhas = this.numLinhas;

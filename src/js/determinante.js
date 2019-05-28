@@ -7,8 +7,8 @@ let OperacaoSoma = require("./operacao_soma");
  * (somente no caso de matrizes 3x3)
  */
 class Estagio1 {
+  
   calcular(tam, mA) {
-    console.log("estágio 1 - calcular");
     let resp = Array(tam);
     for (let l = 1; l <= tam; ++l) {
       resp[l] = Array(tam);
@@ -22,29 +22,112 @@ class Estagio1 {
     return resp;
   }
 
-  imprimirResultado() {
+  imprimirResultado(tam, matriz) {
     let html = "";
 
-    html += `<div class="col-md-8 offset-md-2>`;
-    html += this.gerarMatriz("Matriz A", this.mC, false, "a");
+    html += this.gerarEnunciado();
+    html += `<div class="col-md-8 offset-md-2">`;
+    html += this.gerarMatriz(tam, matriz);
     html += `</div>`;
 
     return html;
   }
 
+  gerarMatriz(tam, matriz) {
+    let html = `<h5 class="text-center m-3">Matriz A</h5>`;
+    html += `<table class="table table-bordered">`;
+
+    for (let l = 1; l <= tam; ++l) {
+      html += "<tr>";
+
+      for (let c = 1; c <= tam+2; ++c) {
+        if (c > tam) {
+          html += `<td class="alert-dark">(a<sub>${l}${c - 3}</sub>) `;
+          html += `<strong>${matriz[l][c]}</strong></td>`;
+        } else {
+          html += `<td>(a<sub>${l}${c}</sub>) `;
+          html += `${matriz[l][c]}</td>`;
+        }
+      }
+      html += "</tr>";
+    }
+
+    html += "</table>";
+    return html;
+  }
+
+  gerarEnunciado() {
+    
+    let html = `<p class="lead">`;
+    html += `Aparecerá algum texto aqui`;
+    html += `</p>`;
+
+    return html;
+  }
+
+  retornarStatus() {
+    return [1,1];
+  }
+}
+
+/**
+ * Multiplicação das diagonais secundárias
+ */
+class Estagio2 {
+
+  retornarStatus() {
+    return [2,3];
+  }
+
+  imprimirResultado() {
+    let html = "";
+
+    html += this.gerarEnunciado();
+
+    html += `<div class="col-xl-12 row">`;
+
+    html += `<div class="col-md-6">`;
+    html += this.gerarMatriz("Matriz A", this.mA, false, "a");
+    html += `</div>`;
+
+    html += `<div class="col-md-6">`;
+    html += this.gerarMatriz("Resultado Diagonais", this.mA, true, "c");
+    html += `</div>`;
+
+    html += ``;
+
+    return html;
+  }
+
+  gerarEnunciado() {
+    
+    let html = `<p class="lead">`;
+    html += `Aparecerá algum texto aqui`;
+    html += `</p>`;
+
+    return html;
+  }
+
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
+    let html = `<h5 class="text-center m-3">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
 
     for (let l = 1; l <= this.numLinhas; ++l) {
       html += "<tr>";
 
       for (let c = 1; c <= this.numColunas; ++c) {
-        if (c > this.numLinhas) {
-          html += `<td class="alert-dark">(${prefixo}<sub>${l}${c - 3}</sub>) `;
-          html += `<strong>${matriz[l][c]}</strong></td>`;
+        if (l == this.linhaAtiva && c == this.colunaAtiva) {
+          if (mostrarCalculo) {
+            html += `<td class="alert-dark">`;
+            html += this.gerarCalculo(l, c);
+            html += `</td>`;
+          } else {
+            html += `<td class="alert-dark">(${prefixo}<sub>${l}${c}</sub>) <strong>${
+              matriz[l][c]
+            }</strong></td>`;
+          }
         } else {
-          html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
+          html += `<td>${matriz[l][c]}</td>`;
         }
       }
       html += "</tr>";
@@ -56,9 +139,11 @@ class Estagio1 {
 }
 
 class OperacaoDeterminante extends OperacaoSoma {
+  
   constructor() {
     super();
     this.obj = new Estagio1();
+    this.etapa = 1;
   }
 
   redimensionarMatrizes() {
@@ -84,7 +169,9 @@ class OperacaoDeterminante extends OperacaoSoma {
     $("#passo-a-passo").html(utils.criarPassoAPasso());
 
     this.mA = utils.recuperarMatriz("a", numLinhas, numLinhas);
+    
     if (numLinhas == 3) this.mA = this.calcular();
+    else this.obj = new Estagio2();
 
     this.atualizarResultado();
   }
@@ -94,11 +181,73 @@ class OperacaoDeterminante extends OperacaoSoma {
   }
 
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    return this.obj.gerarMatriz();
+    return this.obj.gerarMatriz(this.numLinhas, this.mA);
   }
 
   imprimirResultado() {
-    return this.obj.imprimirResultado();
+    return this.obj.imprimirResultado(this.numLinhas, this.mA);
+  }
+
+  gerarEnunciado(verbo) {
+    return this.obj.gerarEnunciado();
+  }
+
+  voltar() {
+
+    let [estagio, qtdEtapas] = this.obj.retornarStatus();
+
+    if (this.etapa == 1) {
+      switch(estagio) {
+        case 2:
+        this.obj = new Estagio1();
+        break;
+      }
+
+      this.etapa = qtdEtapas;
+    } else {
+      --this.etapa;
+    }
+
+    this.atualizarResultado();
+  }
+
+  avancar() {
+
+    let [estagio, qtdEtapas] = this.obj.retornarStatus();
+
+    if (this.etapa == qtdEtapas) {
+      switch(estagio) {
+        case 1:
+        this.obj = new Estagio2();
+        break;
+      }
+
+      this.etapa = 1;
+    } else {
+      ++this.etapa;
+    }
+
+    this.atualizarResultado();
+  }
+
+  atualizarEstagio() {
+    let [ estagio, qtdEtapas ] = this.obj.retornarStatus();
+
+    if (estagio == 1) {
+      this.estagio = 1;
+      return;
+    }
+
+    if (this.etapa == qtdEtapas && estagio == 5) {
+      this.estagio = 3;
+      return;
+    }
+
+    if (linhaAtiva == 0 && colunaAtiva == 0) {
+      this.estagio = 4;
+    } else {
+      this.estagio = 2;
+    }
   }
 }
 

@@ -98,7 +98,7 @@ class OperacaoSoma {
    * Retorna o HTML para mostrar uma matriz no quadro de resposta.
    */
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
+    let html = `<h5 class="text-center m-3">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
 
     for (let l = 1; l <= this.numLinhas; ++l) {
@@ -130,7 +130,7 @@ class OperacaoSoma {
    * Retorna o HTML responsável por mostrar um escalar no quadro de resposta.
    */
   gerarEscalar(escalar) {
-    let html = `<h5 class="card-title text-center conteudo">Escalar</h5>`;
+    let html = `<h5 class="text-center m-3">Escalar</h5>`;
     html += `<table class="table table-bordered">`;
     html += "<tr>";
     html += `<td class="alert-dark">${escalar}</td>`;
