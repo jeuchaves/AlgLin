@@ -7,14 +7,14 @@ let OperacaoSoma = require("./operacao_soma");
  * (somente no caso de matrizes 3x3)
  */
 class Estagio1 {
-  
   calcular(tam, mA) {
+    console.log("estágio 1 - calcular");
     let resp = Array(tam);
     for (let l = 1; l <= tam; ++l) {
       resp[l] = Array(tam);
 
-      for (let c = 1; c <= tam+2; ++c) {
-        if (c > 3) resp[l][c] = mA[l][c-3];
+      for (let c = 1; c <= tam + 2; ++c) {
+        if (c > 3) resp[l][c] = mA[l][c - 3];
         else resp[l][c] = mA[l][c];
       }
     }
@@ -23,7 +23,6 @@ class Estagio1 {
   }
 
   imprimirResultado() {
-    
     let html = "";
 
     html += `<div class="col-md-8 offset-md-2>`;
@@ -34,8 +33,7 @@ class Estagio1 {
   }
 
   gerarMatriz(titulo, matriz, mostrarCalculo, prefixo) {
-    
-    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;    
+    let html = `<h5 class="card-title text-center conteudo">${titulo}</h5>`;
     html += `<table class="table table-bordered">`;
 
     for (let l = 1; l <= this.numLinhas; ++l) {
@@ -43,7 +41,7 @@ class Estagio1 {
 
       for (let c = 1; c <= this.numColunas; ++c) {
         if (c > this.numLinhas) {
-          html += `<td class="alert-dark">(${prefixo}<sub>${l}${c-3}</sub>) `;
+          html += `<td class="alert-dark">(${prefixo}<sub>${l}${c - 3}</sub>) `;
           html += `<strong>${matriz[l][c]}</strong></td>`;
         } else {
           html += `<td>(${prefixo}<sub>${l}${c}</sub>) ${matriz[l][c]}</td>`;
@@ -58,7 +56,6 @@ class Estagio1 {
 }
 
 class OperacaoDeterminante extends OperacaoSoma {
-  
   constructor() {
     super();
     this.obj = new Estagio1();
@@ -66,14 +63,12 @@ class OperacaoDeterminante extends OperacaoSoma {
 
   redimensionarMatrizes() {
     let [numLinhas] = utils.getEntradaUnica();
-    
+
     this.numLinhas = utils.limitar(numLinhas, 1, 3);
 
     this.numColunas = this.numLinhas + 2;
 
-    $("#MatrizA").html(
-      utils.gerarEntradaMatricial("a", this.numLinhas, this.numLinhas)
-    );
+    $("#MatrizA").html(utils.gerarEntradaMatricial("a", this.numLinhas, this.numLinhas));
   }
 
   realizarOperacao() {
@@ -89,7 +84,7 @@ class OperacaoDeterminante extends OperacaoSoma {
     $("#passo-a-passo").html(utils.criarPassoAPasso());
 
     this.mA = utils.recuperarMatriz("a", numLinhas, numLinhas);
-    if (numLinhas == 3) this.mA = this.obj.calcular();
+    if (numLinhas == 3) this.mA = this.calcular();
 
     this.atualizarResultado();
   }
