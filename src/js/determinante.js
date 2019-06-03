@@ -53,7 +53,7 @@ class Estagio1 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Aparecerá algum texto nesse estágio (1° Estágio)<br>`;
+    html += `Art.3 Aparecerá algum texto nesse estágio (1° Estágio)<br>`;
     html += `Etapa: ${this.etapa}`
     html += `</p>`;
 
@@ -102,16 +102,16 @@ class Estagio2 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Aparecerá algum texto nesse estágio (2° Estágio)<br>`;
+    html += `Art.4 Aparecerá algum texto nesse estágio (2° Estágio)<br>`;
 
-    let calc = this.gerarCalculo();
+    let calc = this.gerarCalculo(true);
     html += `<strong>${calc}</strong>`;
     html += `</p>`;
 
     return html;
   }
 
-  gerarCalculo() {
+  gerarCalculo(mostrarResultado, elementoAtivado) {
     
     let html = "";
 
@@ -122,7 +122,7 @@ class Estagio2 {
       if (i > 1 && i < this.tamanho) operadorSoma = " + ";
 
       html += operadorSoma;
-      if (i <= this.etapa) {
+      if (i <= this.etapa && mostrarResultado) {
   
         if (i == this.etapa)
           html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`
@@ -131,12 +131,19 @@ class Estagio2 {
 
       } else { 
         
+        if (!mostrarResultado && i == elementoAtivado) 
+          html += `<span class="badge badge-secondary">`;
+
         for (let l = 1; l <= this.tamanho; ++l) {
+
           for (let c = 1; c <= this.tamanho + 2; ++c) {
-            if (l == c-(i-1)) {
+
+            if (l == c - (i-1)) {
               
               let operadorMult = "";
               if (l > 1 && l < this.tamanho) operadorMult = "×";
+              
+              
               
               html += operadorMult;
               html += `a<sub>${l}${c}</sub>`; 
@@ -145,7 +152,11 @@ class Estagio2 {
           }
         }
 
+        if (!mostrarResultado && i == elementoAtivado) 
+          html += `</span>`;
+
       }
+
       html += operadorSoma;
 
     }
@@ -213,22 +224,22 @@ class Estagio3 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Aparecerá algum texto nesse estágio (3° Estágio)<br>`;
+    html += `Art.5 Aparecerá algum texto nesse estágio (3° Estágio)<br>`;
 
-    let calc = this.gerarCalculo();
+    let calc = this.gerarCalculo(true);
     html += `<strong>${calc}</strong>`;
     html += `</p>`;
 
     return html;
   }
 
-  gerarCalculo() {
+  gerarCalculo(mostrarResultado, elementoAtivado) {
     
     let html = "";
 
     for (let i = 1; i <= this.tamanho; ++i) {
 
-      if (i <= this.etapa) {
+      if (i <= this.etapa && mostrarResultado) {
 
         if (i == this.etapa)
           html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`
@@ -237,6 +248,9 @@ class Estagio3 {
 
       } else { 
         
+        if (!mostrarResultado && i == elementoAtivado)  
+          html += `<span class="badge badge-secondary">`;
+
         html += " - ";
         for (let l = 1; l <= this.tamanho; ++l) {
           for (let c = 1; c <= this.tamanho + 2; ++c) {
@@ -252,6 +266,10 @@ class Estagio3 {
           }
         }
 
+        html += "×(-1)";
+
+        if (!mostrarResultado && i == elementoAtivado) 
+          html += `</span>`;
       }
 
       html += " ";
@@ -278,6 +296,99 @@ class Estagio3 {
 
     html += "</table>";
 
+    return html;
+  }
+}
+
+/**
+ * Finalização do cálculo
+ * (mostrando de maneira mais matemática e conclusiva)
+ */
+class Estagio4 {
+
+  constructor(tamanho, matriz, etapa) {
+    this.etapa = etapa;
+    this.tamanho = tamanho;
+    this.matriz = matriz;
+  }
+
+  retornarStatus() {
+    return [4,6];
+  }
+
+  gerarEnunciado() {
+    
+    this.diagPricipal = new Estagio2(this.tamanho, this.matriz, 1);
+    this.diagSecundaria = new Estagio3(this.tamanho, this.matriz, 1);
+
+    let html = `<p class="lead">`;
+    html += `Art.6 Aparecerá algum texto nesse estágio (4° Estágio)<br>`;
+
+    //Mostrar todos os elementos. Exemplo: a11xa12xa13 + a22x13...
+    let calc1, calc2;
+
+    if (this.etapa <= 3) {
+      calc1 = this.diagPricipal.gerarCalculo(false, this.etapa);
+      calc2 = this.diagSecundaria.gerarCalculo(false);
+    } else {
+      calc1 = this.diagPricipal.gerarCalculo(false);
+      calc2 = this.diagSecundaria.gerarCalculo(false, this.etapa - 3);
+    }
+
+    html += `<strong>${calc1} ${calc2}<br></strong>`;
+
+    html += `<strong>`;
+
+    //Mostrar todos os resultados. Exemplo: 6 + 5 + 7... 
+    
+    //Diagonais Principais
+    for (let i = 1; i <= this.tamanho; ++i) {
+      
+      if (this.etapa <= 3 && i == this.etapa)
+        html += `<span class="badge badge-secondary">`;
+
+      html += this.diagPricipal.diagonal[i];
+
+      if (this.etapa <= 3 && i == this.etapa)
+        html += `</span>`;
+
+      if (i < this.tamanho) html += " + ";
+    }
+
+    html += " + ";
+
+    //Diagonais Secundarias
+    for (let i = 1; i <= this.tamanho; ++i) {
+      
+      if (this.etapa > 3 && (this.etapa - 3) == i)
+        html += `<span class="badge badge-secondary">`;
+
+      html += this.diagPricipal.diagonal[i];
+
+      if (this.etapa > 3 && (this.etapa - 3) == i)
+        html += `</span>`;
+
+      if (i < this.tamanho) html += " + ";
+    }
+    
+    html += `</p>`;
+
+    return html;
+  }
+
+  gerarMatriz(matriz, tamanho) {
+    let html = `<h5 class="text-center m-3">Matriz A</h5>`;
+    html += `<table class="table table-bordered">`;
+
+    for (let l = 1; l <= tamanho; ++l) {
+      html += "<tr>";
+      for (let c = 1; c <= tamanho + 2; ++c) {
+        html += `<td>${matriz[l][c]}</td>`;
+      }
+      html += "</tr>";
+    }
+
+    html += "</table>";
     return html;
   }
 }
@@ -354,6 +465,9 @@ class OperacaoDeterminante extends OperacaoSoma {
         case 3:
           this.obj = new Estagio2(this.numLinhas, this.mA, 3);
           break;
+        case 4:
+          this.obj = new Estagio3(this.numLinhas, this.mA, 3);
+          break;
       }
     } else {
       --this.obj.etapa;
@@ -373,7 +487,10 @@ class OperacaoDeterminante extends OperacaoSoma {
           break;
         case 2:
           this.obj = new Estagio3(this.numLinhas, this.mA, 1);
-
+          break;
+        case 3:
+          this.obj = new Estagio4(this.numLinhas, this.mA, 1);
+          break;
       }
       this.obj.etapa = 1;
     } else {
@@ -391,7 +508,7 @@ class OperacaoDeterminante extends OperacaoSoma {
       return;
     }
 
-    if (this.obj.etapa == qtdEtapas && estagio == 5) {
+    if (this.obj.etapa == qtdEtapas && estagio == 4) {
       this.estagio = 3;
       return;
     }
