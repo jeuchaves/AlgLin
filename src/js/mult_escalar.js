@@ -3,6 +3,7 @@ let utils = require("./utils");
 let OperacaoSoma = require("./operacao_soma");
 
 class OperacaoEscalar extends OperacaoSoma {
+  
   calcular() {
     let res = Array(this.numLinhas);
 
@@ -29,7 +30,15 @@ class OperacaoEscalar extends OperacaoSoma {
   }
 
   gerarCalculo(l, c) {
-    return `${this.escalar} × ${this.mA[l][c]} = ${this.mC[l][c]}`;
+    let html = "";
+    html += `${this.escalar} × `;
+    
+    if (this.mA[l][c] < 0)
+      html += `(${this.mA[l][c]}) = ${this.mC[l][c]}`;
+    else 
+      html += `${this.mA[l][c]} = ${this.mC[l][c]}`;
+    
+    return html;
   }
 
   gerarEnunciado() {

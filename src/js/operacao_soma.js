@@ -56,6 +56,7 @@ class OperacaoSoma {
    * Exemplo: 5 + 3 = 8.
    */
   gerarCalculo(l, c, op) {
+    
     if (op == undefined) {
       op = "+";
     }
