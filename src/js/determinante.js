@@ -53,8 +53,10 @@ class Estagio1 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Art.3 Aparecerá algum texto nesse estágio (1° Estágio)<br>`;
-    html += `Etapa: ${this.etapa}`
+    if(this.etapa == 1)
+      html += `Duplique a <strong>primeira coluna</strong> da <strong>Matriz A</strong> para a <strong>quarta coluna</strong>.<br>`;
+    else 
+      html += `Duplique a <strong>segunda coluna</strong> da <strong>Matriz A</strong> para a <strong>quinta coluna</strong>.<br>`;
     html += `</p>`;
 
     return html;
@@ -72,15 +74,18 @@ class Estagio2 {
 
   constructor(tamanho, matriz, etapa) {
     this.tamanho = tamanho;
-    this.diagonal = this.calcularDiagonal(matriz);
     this.etapa = etapa;
+    this.matriz = matriz;
+
+    this.diagonal = this.calcularDiagonal();
   }
 
   retornarStatus() {
     return [2,3];
   }
 
-  calcularDiagonal(matriz) {
+  calcularDiagonal() {
+    
     let resp = Array(this.tamanho);
 
     for (let i = 1; i <= this.tamanho; ++i) 
@@ -90,7 +95,7 @@ class Estagio2 {
       for (let j = 1; j <= this.tamanho; ++j) {
         for (let k = 1; k <= this.tamanho + 2; ++k) {
           if (j == k-(i-1)) {
-            resp[i] *= matriz[j][k];
+            resp[i] *= this.matriz[j][k];
           }
         }
       }
@@ -102,58 +107,73 @@ class Estagio2 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Art.4 Aparecerá algum texto nesse estágio (2° Estágio)<br>`;
+    html += `<strong>Multiplique</strong> os elementos destacados.<br>`;
 
-    let calc = this.gerarCalculo(true);
+    let calc = this.gerarCalculo("posicao", this.etapa);
     html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
+    calc = this.gerarCalculo("elemento", this.etapa);
+    html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
+    calc = this.gerarCalculo("resultado", this.etapa);
+    html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
     html += `</p>`;
 
     return html;
   }
 
-  gerarCalculo(mostrarResultado, elementoAtivado) {
+  gerarCalculo(mostrar, campoDestacado) {
     
     let html = "";
 
     for (let i = 1; i <= this.tamanho; ++i) {
-      
+
       //Verifica necessidade de sinal "+"
       let operadorSoma = "";
       if (i > 1 && i < this.tamanho) operadorSoma = " + ";
-
       html += operadorSoma;
-      if (i <= this.etapa && mostrarResultado) {
-  
-        if (i == this.etapa)
-          html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`
-        else
-          html += `${this.diagonal[i]}`;
+      
+      if (mostrar == "resultado") {
+        
+        if (i == campoDestacado) {
+          if (this.diagonal[i] < 0 && i > 1) 
+            html += `<span class="badge badge-secondary">(${this.diagonal[i]})</span>`;
+          else
+            html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`;
+        } else {
+          if (this.diagonal[i] < 0 && i > 1) 
+            html += `(${this.diagonal[i]})`;
+          else
+            html += this.diagonal[i];
+        }
 
       } else { 
-        
-        if (!mostrarResultado && i == elementoAtivado) 
+        if (i == campoDestacado) 
           html += `<span class="badge badge-secondary">`;
 
         for (let l = 1; l <= this.tamanho; ++l) {
-
           for (let c = 1; c <= this.tamanho + 2; ++c) {
-
             if (l == c - (i-1)) {
-              
               let operadorMult = "";
               if (l > 1 && l < this.tamanho) operadorMult = "×";
               
-              
-              
               html += operadorMult;
-              html += `a<sub>${l}${c}</sub>`; 
+              if (mostrar == "elemento") {
+                if (this.matriz[l][c] < 0 && (l + c) > 2) html += `(${this.matriz[l][c]})`;
+                
+                else html += this.matriz[l][c]; 
+              }
+              if (mostrar == "posicao")
+                html += `a<sub>${l}${c}</sub>`;
               html += operadorMult;
             }
           }
         }
-
-        if (!mostrarResultado && i == elementoAtivado) 
-          html += `</span>`;
+        if (i == campoDestacado) html += `</span>`;
 
       }
 
@@ -164,7 +184,8 @@ class Estagio2 {
     return html;
   }
 
-  gerarMatriz(matriz) {
+  gerarMatriz() {
+
     let html = `<h5 class="text-center m-3">Matriz A</h5>`;
     html += `<table class="table table-bordered">`;
 
@@ -173,9 +194,9 @@ class Estagio2 {
 
       for (let c = 1; c <= this.tamanho + 2; ++c) {
         if (l == c-(this.etapa-1)) 
-          html += `<td class="alert-dark">(a<sub>${l}${c}</sub>) <strong>${matriz[l][c]}</strong></td>`; 
+          html += `<td class="alert-dark">(a<sub>${l}${c}</sub>) <strong>${this.matriz[l][c]}</strong></td>`; 
         else 
-          html += `<td>${matriz[l][c]}</td>`;
+          html += `<td>${this.matriz[l][c]}</td>`;
       }
       html += "</tr>";
     }
@@ -193,15 +214,17 @@ class Estagio3 {
 
   constructor(tamanho, matriz, etapa) {
     this.tamanho = tamanho;
-    this.diagonal = this.calcularDiagonal(matriz);
+    this.matriz = matriz;
     this.etapa = etapa;
+
+    this.diagonal = this.calcularDiagonal(matriz);
   }
 
   retornarStatus() {
     return [3,3];
   }
 
-  calcularDiagonal(matriz) {
+  calcularDiagonal() {
     let resp = Array(this.tamanho);
 
     for (let i = 1; i <= this.tamanho; ++i) 
@@ -211,7 +234,7 @@ class Estagio3 {
       for (let j = 1; j <= this.tamanho; ++j) {
         for (let k = 1; k <= this.tamanho + 2; ++k) {
           if (j + k == 3 + i) {
-            resp[i] *= matriz[j][k];
+            resp[i] *= this.matriz[j][k];
             resp[i] *= -1;
           }
         }
@@ -224,34 +247,56 @@ class Estagio3 {
   gerarEnunciado() {
     
     let html = `<p class="lead">`;
-    html += `Art.5 Aparecerá algum texto nesse estágio (3° Estágio)<br>`;
+    html += `<strong>Multiplique</strong> os elementos destacados, em seguida, multiplique por <strong>-1</strong>.<br>`;
 
-    let calc = this.gerarCalculo(true);
+    let calc = this.gerarCalculo("posicao", this.etapa);
     html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
+    calc = this.gerarCalculo("elemento", this.etapa);
+    html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
+    calc = this.gerarCalculo("resultado", this.etapa);
+    html += `<strong>${calc}</strong>`;
+    html += "<br>";
+
     html += `</p>`;
 
     return html;
   }
 
-  gerarCalculo(mostrarResultado, elementoAtivado) {
+  gerarCalculo(mostrar, campoDestacado) {
     
     let html = "";
 
     for (let i = 1; i <= this.tamanho; ++i) {
 
-      if (i <= this.etapa && mostrarResultado) {
+      //Verifica necessidade de sinal "+"
+      let operadorSoma = "";
+      if (i > 1 && i < this.tamanho) operadorSoma = " + ";
+      html += operadorSoma;
 
-        if (i == this.etapa)
-          html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`
-        else
-          html += `${this.diagonal[i]}`;
+      if (mostrar == "resultado") {
 
+        if (i == campoDestacado) {
+          if (this.diagonal[i] < 0 && i > 1) 
+            html += `<span class="badge badge-secondary">(${this.diagonal[i]})</span>`;
+          else
+            html += `<span class="badge badge-secondary">${this.diagonal[i]}</span>`;
+        } else {
+          if (this.diagonal[i] < 0 && i > 1) 
+            html += `(${this.diagonal[i]})`;
+          else
+            html += this.diagonal[i];
+        }
       } else { 
-        
-        if (!mostrarResultado && i == elementoAtivado)  
+        if (i == campoDestacado)  
           html += `<span class="badge badge-secondary">`;
 
-        html += " - ";
+        if (i > 1) html += "(-1)×";
+        else html += "-1×";
+
         for (let l = 1; l <= this.tamanho; ++l) {
           for (let c = 1; c <= this.tamanho + 2; ++c) {
             if (l + c == 3 + i) {
@@ -260,25 +305,28 @@ class Estagio3 {
               if (l > 1 && l < this.tamanho) operadorMult = "×";
               
               html += operadorMult;
-              html += `a<sub>${l}${c}</sub>`; 
+              if (mostrar == "elemento") {
+                if (this.matriz[l][c] < 0 && (l + c) > 2) html += `(${this.matriz[l][c]})`;
+                else html += this.matriz[l][c]; 
+              }
+              if (mostrar == "posicao")
+                html += `a<sub>${l}${c}</sub>`;
               html += operadorMult;
             }
           }
         }
-
-        html += "×(-1)";
-
-        if (!mostrarResultado && i == elementoAtivado) 
-          html += `</span>`;
+        if (i == campoDestacado) html += `</span>`;
       }
 
-      html += " ";
+      html += operadorSoma;
+
     }
 
     return html;
   }
 
-  gerarMatriz(matriz) {
+  gerarMatriz() {
+
     let html = `<h5 class="text-center m-3">Matriz A</h5>`;
     html += `<table class="table table-bordered">`;
 
@@ -287,9 +335,9 @@ class Estagio3 {
 
       for (let c = 1; c <= this.tamanho + 2; ++c) {
         if (l + c == 3 + this.etapa)
-          html += `<td class="alert-dark">(a<sub>${l}${c}</sub>) <strong>${matriz[l][c]}</strong></td>`; 
+          html += `<td class="alert-dark">(a<sub>${l}${c}</sub>) <strong>${this.matriz[l][c]}</strong></td>`; 
         else 
-          html += `<td>${matriz[l][c]}</td>`;
+          html += `<td>${this.matriz[l][c]}</td>`;
       }
       html += "</tr>";
     }
@@ -310,85 +358,125 @@ class Estagio4 {
     this.etapa = etapa;
     this.tamanho = tamanho;
     this.matriz = matriz;
+
+    this.diagPricipal = new Estagio2(this.tamanho, this.matriz, 1);
+    this.diagSecundaria = new Estagio3(this.tamanho, this.matriz, 1);
   }
 
   retornarStatus() {
     return [4,6];
   }
 
+  calcularResultado() {
+    let r1 = this.diagPricipal.calcularDiagonal();
+    let r2 = this.diagSecundaria.calcularDiagonal();
+
+    let soma = 0;
+    for (let i = 1; i <= 6; ++i) {
+      if (i <= 3) soma += r1[i];
+      else soma += r2[i-3];
+    }
+
+    return soma;
+  }
+
   gerarEnunciado() {
-    
-    this.diagPricipal = new Estagio2(this.tamanho, this.matriz, 1);
-    this.diagSecundaria = new Estagio3(this.tamanho, this.matriz, 1);
+  
+    let resultado = this.calcularResultado();
 
     let html = `<p class="lead">`;
-    html += `Art.6 Aparecerá algum texto nesse estágio (4° Estágio)<br>`;
+    html += `Some os produtos das multiplicações anteriores.<br>`;
 
-    //Mostrar todos os elementos. Exemplo: a11xa12xa13 + a22x13...
     let calc1, calc2;
 
+    //Mostrar destacadamente as posições que serão multiplicadas, como a11xa22xa13...
     if (this.etapa <= 3) {
-      calc1 = this.diagPricipal.gerarCalculo(false, this.etapa);
-      calc2 = this.diagSecundaria.gerarCalculo(false);
+      calc1 = this.diagPricipal.gerarCalculo("posicao", this.etapa);
+      calc2 = this.diagSecundaria.gerarCalculo("posicao");
     } else {
-      calc1 = this.diagPricipal.gerarCalculo(false);
-      calc2 = this.diagSecundaria.gerarCalculo(false, this.etapa - 3);
+      calc1 = this.diagPricipal.gerarCalculo("posicao");
+      calc2 = this.diagSecundaria.gerarCalculo("posicao", this.etapa - 3);
     }
-
     html += `<strong>${calc1} ${calc2}<br></strong>`;
 
-    html += `<strong>`;
+    //Mostrar destacadamente os elementos que serão multiplicadas, como 1x2x3...
+    if (this.etapa <= 3) {
+      calc1 = this.diagPricipal.gerarCalculo("elemento", this.etapa);
+      calc2 = this.diagSecundaria.gerarCalculo("elemento");
+    } else {
+      calc1 = this.diagPricipal.gerarCalculo("elemento");
+      calc2 = this.diagSecundaria.gerarCalculo("elemento", this.etapa - 3);
+    }
+    html += `<strong>${calc1} ${calc2}<br></strong>`;
 
-    //Mostrar todos os resultados. Exemplo: 6 + 5 + 7... 
-    
-    //Diagonais Principais
-    for (let i = 1; i <= this.tamanho; ++i) {
-      
-      if (this.etapa <= 3 && i == this.etapa)
-        html += `<span class="badge badge-secondary">`;
+    //Mostrar destacadamente os resultados das multiplicações, como 6 + 6 + 6....
+    if (this.etapa <= 3) {
+      calc1 = this.diagPricipal.gerarCalculo("resultado", this.etapa);
+      calc2 = this.diagSecundaria.gerarCalculo("resultado");
+    } else {
+      calc1 = this.diagPricipal.gerarCalculo("resultado");
+      calc2 = this.diagSecundaria.gerarCalculo("resultado", this.etapa - 3);
+    }
+    html += `<strong>${calc1} ${calc2}<br></strong>`;
 
-      html += this.diagPricipal.diagonal[i];
+    html += `Por fim, o número determinante dessa matriz é <strong>${resultado}</strong>`;
+    return html;
+  }
 
-      if (this.etapa <= 3 && i == this.etapa)
-        html += `</span>`;
+  gerarMatriz() {
 
-      if (i < this.tamanho) html += " + ";
+    if (this.etapa <= 3) {
+      this.diagPricipal.etapa = this.etapa;
+    } else {
+      this.diagSecundaria.etapa = this.etapa - 3;
     }
 
-    html += " + ";
+    if (this.etapa <= 3) return this.diagPricipal.gerarMatriz();
+    return this.diagSecundaria.gerarMatriz();
+  }
+}
 
-    //Diagonais Secundarias
-    for (let i = 1; i <= this.tamanho; ++i) {
-      
-      if (this.etapa > 3 && (this.etapa - 3) == i)
-        html += `<span class="badge badge-secondary">`;
+class Estagio5 {
 
-      html += this.diagPricipal.diagonal[i];
+  constructor(tamanho, matriz, etapa) {
+    this.etapa = etapa;
+    this.tamanho = tamanho;
+    this.matriz = matriz;
 
-      if (this.etapa > 3 && (this.etapa - 3) == i)
-        html += `</span>`;
+    this.estagio4 = new Estagio4(tamanho, matriz, etapa);
+  }
 
-      if (i < this.tamanho) html += " + ";
-    }
+  retornarStatus() {
+    return [5,1];
+  }
+
+  gerarEnunciado() {
     
+    let resultado = this.estagio4.calcularResultado();
+
+    let html = `<p class="lead">`;
+    html += `Logo, o determinante dessa operação é <strong>${resultado}</strong>`;
     html += `</p>`;
 
     return html;
   }
 
-  gerarMatriz(matriz, tamanho) {
+  gerarMatriz() {
+
     let html = `<h5 class="text-center m-3">Matriz A</h5>`;
     html += `<table class="table table-bordered">`;
 
-    for (let l = 1; l <= tamanho; ++l) {
+    for (let l = 1; l <= this.tamanho; ++l) {
       html += "<tr>";
-      for (let c = 1; c <= tamanho + 2; ++c) {
-        html += `<td>${matriz[l][c]}</td>`;
+
+      for (let c = 1; c <= this.tamanho + 2; ++c) {
+        html += `<td>${this.matriz[l][c]}</td>`;
       }
       html += "</tr>";
     }
 
     html += "</table>";
+
     return html;
   }
 }
@@ -468,6 +556,9 @@ class OperacaoDeterminante extends OperacaoSoma {
         case 4:
           this.obj = new Estagio3(this.numLinhas, this.mA, 3);
           break;
+        case 5:
+          this.obj = new Estagio4(this.numLinhas, this.mA, 6);
+          break;
       }
     } else {
       --this.obj.etapa;
@@ -513,11 +604,21 @@ class OperacaoDeterminante extends OperacaoSoma {
       return;
     }
 
-    if (this.linhaAtiva == 0 && this.colunaAtiva == 0) {
+    if (this.obj.etapa == qtdEtapas && estagio == 5) {
       this.estagio = 4;
     } else {
       this.estagio = 2;
     }
+  }
+
+  finalizar() {
+    this.obj = new Estagio5(this.numLinhas, this.mA, 1);
+    this.atualizarResultado();
+  }
+
+  reiniciar() {
+    this.obj = new Estagio1(1);
+    this.atualizarResultado();
   }
 }
 
