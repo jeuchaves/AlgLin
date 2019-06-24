@@ -414,11 +414,11 @@ class Estagio5 {
 }
 
 class OperacaoDeterminante extends OperacaoSoma {
-
+  
   redimensionarMatrizes() {
     let [numLinhas] = utils.getEntradaUnica();
 
-    this.numLinhas = utils.limitar(numLinhas, 1, 3);
+    this.numLinhas = utils.limitar(numLinhas, 3, 3);
 
     $("#MatrizA").html(utils.gerarEntradaMatricial("a", this.numLinhas, this.numLinhas));
   }
