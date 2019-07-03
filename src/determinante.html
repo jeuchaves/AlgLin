@@ -43,6 +43,8 @@
     </div>
 
     <main class="container p-4">
+      
+      <!-- Quando implementar as demais ordens da matriz tirar o comentário 
       <div class="row">
         <div class="col-md-6 align-self-center">
           <p class="lead">
@@ -64,6 +66,7 @@
           </div>
         </div>
       </div>
+    -->
 
       <div class="col-xl-12 p-4">
         <h1 class="text-center">Insira os Dados na Matriz</h1>
@@ -71,12 +74,54 @@
         <div class="row p-3">
           <div class="col-md-6 mb-4">
             <h5 class="card-title text-center">Matriz A</h5>
-            <table align="center" id="MatrizA">
+            <table align="center">
               <!-- Conjunto de inputs da Matriz A --> 
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" id="a11" 
+                  placeholder="a11" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a12" 
+                  placeholder="a12" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a13" 
+                  placeholder="a13" type="number">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" id="a21" 
+                  placeholder="a21" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a22" 
+                  placeholder="a22" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a23" 
+                  placeholder="a23" type="number">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="form-control input-matriz" id="a31" 
+                  placeholder="a31" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a32" 
+                  placeholder="a32" type="number">
+                </td>
+                <td>
+                  <input class="form-control input-matriz" id="a33" 
+                  placeholder="a33" type="number">
+                </td>
+              </tr>
             </table>
           </div>
 
-          <div class="col-md-2 align-self-center text-center animation">
+          <div class="col-md-2 align-self-center text-center animation naoSelecionavel">
             <div class="card mb-3">
               <div class="card-header">Calcular</div>
               <div class="card-body">

@@ -7,9 +7,9 @@ module.exports = {
   gerarBotao: function(nomeImagem, semAnimacao) {
     let html = "";
     if (semAnimacao) {
-      html += `<div class="align-self-center text-center">`;
+      html += `<div class="align-self-center text-center naoSelecionavel">`;
     } else {
-      html += `<div class="align-self-center text-center animation">`;
+      html += `<div class="align-self-center text-center naoSelecionavel animation">`;
     }
 
     html += `<img id="${nomeImagem}" class="rounded-circle" width="65" height="65" src="img/botao/${nomeImagem}.png">`;

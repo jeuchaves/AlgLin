@@ -415,6 +415,7 @@ class Estagio5 {
 
 class OperacaoDeterminante extends OperacaoSoma {
   
+  /* Quando implementar as demais ordens da matriz tirar o comentário 
   redimensionarMatrizes() {
     let [numLinhas] = utils.getEntradaUnica();
 
@@ -422,10 +423,12 @@ class OperacaoDeterminante extends OperacaoSoma {
 
     $("#MatrizA").html(utils.gerarEntradaMatricial("a", this.numLinhas, this.numLinhas));
   }
+  */
 
   realizarOperacao() {
     
-    let { numLinhas } = this;
+    // let { numLinhas } = this;
+    let numLinhas = 3;
 
     if (!utils.matrizEstaPreenchida("a", numLinhas, numLinhas)) {
       utils.mostraErroEntradaIncompleta();
