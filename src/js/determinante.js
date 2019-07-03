@@ -428,9 +428,9 @@ class OperacaoDeterminante extends OperacaoSoma {
   realizarOperacao() {
     
     // let { numLinhas } = this;
-    let numLinhas = 3;
+    this.numLinhas = 3;
 
-    if (!utils.matrizEstaPreenchida("a", numLinhas, numLinhas)) {
+    if (!utils.matrizEstaPreenchida("a", this.numLinhas, this.numLinhas)) {
       utils.mostraErroEntradaIncompleta();
       return;
     } else {
@@ -439,18 +439,18 @@ class OperacaoDeterminante extends OperacaoSoma {
 
     $("#passo-a-passo").html(utils.criarPassoAPasso());
 
-    this.mA = utils.recuperarMatriz("a", numLinhas, numLinhas);
+    this.mA = utils.recuperarMatriz("a", this.numLinhas, this.numLinhas);
     
-    switch (numLinhas) {
+    switch (this.numLinhas) {
       case 1:
-        this.obj = new Estagio5(numLinhas, this.mA, 1);
+        this.obj = new Estagio5(this.numLinhas, this.mA, 1);
         break;
       case 2:
-        this.obj = new Estagio2(numLinhas, this.mA, 1);
+        this.obj = new Estagio2(this.numLinhas, this.mA, 1);
         break;
       case 3:
         this.mA = this.calcular();
-        this.obj = new Estagio1(numLinhas, this.mA, 1);
+        this.obj = new Estagio1(this.numLinhas, this.mA, 1);
         break;
     }
 
